@@ -1,0 +1,30 @@
+.navbar {
+    background-color: #00AEEF;
+    padding-top: 20px;
+    min-height: 100px;
+}
+
+/*.navbarlogo {
+    background-repeat: no-repeat;
+    background-image: url(../../assets/images/nav-icon.png);
+    display: block;
+}*/
+
+.logo {
+    /*margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: middle;*/
+    display: inline;
+    vertical-align: middle;
+    color: white;
+}
+
+.links {
+    margin-top: 10px;
+    color: white;
+}
+/*.logotext {
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: middle;
+}*/

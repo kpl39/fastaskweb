@@ -1,0 +1,34 @@
+.custom-component-drop-zone {
+      width: 300px;
+      height: 300px;
+      border-style: dashed;
+      border-width: 3px;
+      border-radius: 25px;
+      background-color: #EFF3F4;
+    }
+
+.dropbox {
+    margin: auto;
+    width: 50%;
+    padding-top: 120px;
+}
+
+.centertext {
+    text-align: center;
+}
+
+.centerButton {
+    margin:0 auto;
+    display:block;
+}
+
+.centerList {
+    margin: auto;
+    width: 50%;
+}
+
+/*.verticalMiddle {
+    display: inline-block;
+    vertical-align: middle;
+
+}*/

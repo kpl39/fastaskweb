@@ -1,0 +1,10 @@
+.home {
+    background-color: yellow;
+    height: 400px;
+}
+
+.home-card {
+    max-width: 30vw;
+    max-height: 50%;
+    background-color: chartreuse;
+}

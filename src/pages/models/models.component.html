@@ -1,0 +1,28 @@
+
+
+<div class="dropbox"> 
+    <h3 class="centertext">Drop 3D models here to use in Scavenger Hunts</h3>
+    <br/>
+    <div ng2FileDrop class="custom-component-drop-zone dropbox" 
+        [ng2FileDropAcceptMultiple]="true" 
+        (ng2FileDropFilesDropped)="dragFilesDropped($event)"
+        (ng2FileDropHoverStart)="dragFileOverStart()"
+        (ng2FileDropHoverEnd)="dragFileOverEnd()">
+        <p class="centertext verticalMiddle">Files must be encoded in .wt3 format</p>
+        <p class="centertext verticalMiddle">Click <a href="http://www.wikitude.com/products/wikitude-sdk-features/wikitude-3d-encoder/" target="_blank">here</a> for more information</p>
+    </div>
+    <br/>
+    <div *ngIf="valid">
+        <md-list class="centerList">
+            <h3 md-subheader>Files</h3>
+            <md-list-item *ngFor="let model of models.acceptedFiles; let i = index">
+                <md-icon md-list-icon>attachment</md-icon>
+                <h4 md-line>{{model.acceptedFile.name}}</h4>
+                <button md-icon-button (click)="removeFile(i)"><md-icon>delete</md-icon></button>
+            </md-list-item>
+        </md-list>
+        <md-divider></md-divider>
+        <br/>
+        <button class="centerButton" md-raised-button (click)="submitModel()">Submit Model</button>
+    </div>
+</div>
