@@ -7,23 +7,18 @@ declare var AWS;
 
 @Injectable()
 export class AuthService {
-  private secret: String = '6LfwIyYUAAAAAPBdFdRPNZ7c-llt0nBb7O9DSUP0';
 
 constructor(
     private http: Http
     ) {}
 
     verifyCaptcha(response) {
-        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
-        let options = new RequestOptions({ headers: headers });
-
-        let pkg = {
-            secret: this.secret,
-            response: response
-        };
-
+       let pkg = {
+           response: response
+       };
+       console.log("BEFORE SENDING TO SERVER", response);
         return new Promise(resolve => {
-            this.http.post('https://www.google.com/recaptcha/api/siteverify', pkg, options)
+            this.http.post('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/captcha', pkg)
             .subscribe((res) => resolve(res.json().data));
         })
     }
