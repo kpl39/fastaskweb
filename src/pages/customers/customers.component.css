@@ -1,0 +1,31 @@
+/*/*.full-width {
+  width: 100%;
+};*/
+
+
+
+.test {
+    height: 500px;
+    padding: 30px;
+    margin: auto;
+    width: 50%;
+    
+
+}
+
+.full-width {
+    width: 100%;
+}
+
+
+.md-select-placeholder {
+margin-top:-5px;
+}
+
+.selectpadding {
+    padding-bottom: 10px;
+}
+
+
+.selectInput{
+    display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}
