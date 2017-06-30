@@ -67,7 +67,7 @@ export function highchartsFactory() {
     BrowserAnimationsModule,
     ReCaptchaModule,
     HttpModule,
-    AngularFireModule.initializeApp(environment.firebase, 'fastaskweb'),
+    AngularFireModule,
     AngularFireAuthModule,
     ChartModule
   ],
