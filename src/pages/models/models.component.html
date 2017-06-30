@@ -26,3 +26,41 @@
         <button class="centerButton" md-raised-button (click)="submitModel()">Submit Model</button>
     </div>
 </div>
+
+<section class="modelGallery">
+    <!--<div class="container">
+        <slick-carousel>
+            <div class="centerDiv"><img class="centerImg"  src="https://dg5bepmjyhz9h.cloudfront.net/urls/b904037af99a438bb461d46426332283/dist/thumbnails/a8d3df8a63944a419a2ef93e75298a21/256x144.jpeg" /></div>
+            <div class="centerDiv"><img class="centerImg"  src="https://dg5bepmjyhz9h.cloudfront.net/urls/b904037af99a438bb461d46426332283/dist/thumbnails/a8d3df8a63944a419a2ef93e75298a21/256x144.jpeg" /></div>
+            <div class="centerDiv"><img class="centerImg"  src="https://dg5bepmjyhz9h.cloudfront.net/urls/b904037af99a438bb461d46426332283/dist/thumbnails/a8d3df8a63944a419a2ef93e75298a21/256x144.jpeg" /></div>
+            <div class="centerDiv"><img class="centerImg"  src="https://dg5bepmjyhz9h.cloudfront.net/urls/b904037af99a438bb461d46426332283/dist/thumbnails/a8d3df8a63944a419a2ef93e75298a21/256x144.jpeg" /></div>
+            <div class="centerDiv"><img class="centerImg"  src="https://dg5bepmjyhz9h.cloudfront.net/urls/b904037af99a438bb461d46426332283/dist/thumbnails/a8d3df8a63944a419a2ef93e75298a21/256x144.jpeg" /></div>
+            <div class="centerDiv"><img class="centerImg"  src="https://dg5bepmjyhz9h.cloudfront.net/urls/b904037af99a438bb461d46426332283/dist/thumbnails/a8d3df8a63944a419a2ef93e75298a21/256x144.jpeg" /></div>
+        </slick-carousel>
+    </div>-->
+     <div class="container">
+        <!--<slick-carousel *ngIf="models">
+            <div *ngFor="let model of models" class="centerDiv"><img (click)="openModel3D(model.uid)" class="centerImg"  src={{model.thumbnails.images[3].url}}/></div>
+        </slick-carousel>-->
+        <!--<div class="row no-gutters">-->
+            <button md-button (click)="clearFilter()" *ngIf="filtered">x</button>
+            <md-input-container class="full-width">
+                <input mdInput placeholder="Filter" [(ngModel)]="filter">
+            </md-input-container>
+            <button md-button (click)="filterModels()">Filter</button>
+            
+            <div class="col-md-12">
+                    <div class="col-md-3 top-buffer" *ngFor="let model of models" (click)="openModel3D(model.uid)">
+                        <img src={{model.thumbnails.images[3].url}} class="centerImg" >
+                    </div>
+            </div>
+        <!--</div>-->
+    </div>
+    <div class="centerDiv">
+        <div class="phone">
+            <div class="frame">
+                <iframe src="" id="api-frame" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" height="400" width="800"></iframe>
+            </div>
+        </div>
+    </div>
+</section>

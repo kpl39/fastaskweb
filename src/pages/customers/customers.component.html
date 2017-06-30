@@ -1,103 +1,168 @@
-<div class="container">
-  <div class="test">
-    <form [formGroup]="custForm" novalidate>
-
-      <md-input-container class="full-width">
-          <input mdInput placeholder="Business Name" [(ngModel)]="customerData.businessName" formControlName="businessName">
-          <md-error [hidden]="custForm.controls.businessName.valid || custForm.controls.businessName.pristine">
-            Business Name is Required
-          </md-error>
-      </md-input-container>
-
-      <md-input-container class="full-width">
-          <input mdInput placeholder="Business Website" [(ngModel)]="customerData.businessWebsite" formControlName="businessWebsite">
-          <md-error [hidden]="custForm.controls.businessWebsite.valid || custForm.controls.businessWebsite.pristine">
-            Business Website is Required
-          </md-error>
-      </md-input-container>
-
-      <table class="full-width">
-        <tr>
-          <td>
-            <md-input-container class="full-width">
-              <input mdInput placeholder="First Name" [(ngModel)]="customerData.firstName" formControlName="firstName">
-              <md-error [hidden]="custForm.controls.firstName.valid || custForm.controls.firstName.pristine">
-                First Name is Required
-              </md-error>
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="full-width">
-              <input mdInput placeholder="Last Name" [(ngModel)]="customerData.lastName" formControlName="lastName">
-              <md-error [hidden]="custForm.controls.lastName.valid || custForm.controls.lastName.pristine">
-                Last Name is Required
-              </md-error>
-            </md-input-container>
-          </td>
-        </tr>
-      </table>
-
-      <md-input-container class="full-width">
-            <input mdInput placeholder="Business Email" [(ngModel)]="customerData.email" formControlName="email">
-            <md-error *ngIf="custForm.controls.email.hasError('required') && custForm.controls.email.touched">
-              Email is Required
-            </md-error>
-            <md-error *ngIf="custForm.controls.email.hasError('pattern')">
-              Please Enter a Valid Email Address
-            </md-error>
-      </md-input-container>
-
-      <table class="full-width">
-        <tr>
-          <td width="50%">
-            <md-input-container class="full-width">
-              <input mdInput placeholder="City" formControlName="city" [(ngModel)]="customerData.city">
-              <md-error *ngIf="custForm.controls.city.hasError('required') && custForm.controls.city.touched">
-                City is Required
-              </md-error>
-            </md-input-container>
-          </td>
-          <td width="20%">
-           <md-input-container class="full-width">
-              <input mdInput placeholder="State" formControlName="state" [(ngModel)]="customerData.state">
-              <md-error *ngIf="custForm.controls.state.hasError('required') && custForm.controls.state.touched">
-                State is Required
-              </md-error>
-               <md-error *ngIf="custForm.controls.state.hasError('pattern')">
-                ex: OH
-              </md-error> 
-            </md-input-container>
-          </td>
-          <td width="30%">
-           <md-input-container class="full-width">
-              <input mdInput placeholder="Zip Code" formControlName="zip" [(ngModel)]="customerData.zip">
-              <md-error *ngIf="custForm.controls.zip.hasError('required') && custForm.controls.zip.touched">
-                Zip Code is Required
-              </md-error>
-              <md-error *ngIf="custForm.controls.zip.hasError('pattern')">
-                Please Enter a Valid Zip Code
-              </md-error> 
-            </md-input-container>
-          </td>
-        </tr>
-      </table>
-
-      <md-input-container class="full-width">
-        <input mdInput placeholder="Phone Number" formControlName="phone"  [(ngModel)]="customerData.phone">
-        <md-error *ngIf="custForm.controls.phone.hasError('required') && custForm.controls.phone.touched">
-          Phone Number is Required
-        </md-error>
-        <md-error *ngIf="custForm.controls.phone.hasError('pattern')">
-          Please Enter a Valid 10 Digit Phone Number With or Without Hyphens
-        </md-error>
-      </md-input-container>
-      <re-captcha site_key="6LfwIyYUAAAAAFBZoJqEVEHCIYx5ck9RuOfnKCc9" (captchaResponse)="handleCorrectCaptcha($event)"></re-captcha>
-    </form>
+<div class="headerPadding">
+<div class="splash">
+    <div class="splash-video-wrapper">
+        <video loop muted autoplay class="splash-video">
+            <source src="../../assets/videos/race.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="splash-overlay">
+        <div class="splash-headline backing">
+            <h1>User Interaction</h1>
+            <h3>Ads are annoying! Have your users actually interact with your product!</h3>
+            
+        </div>
+        <div class="splash-bottom">
+            <div>
+                <div class="cameraLocation">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="benefitsSection">
+  
+</section>
+<section class="chartSection">
+  <div class="container">
+    <!--<table>
+      <tr>
+        <td>
+          <chart [options]="options"></chart>
+        </td>
+        <td>
+          <chart [options]="hourOptions"></chart>
+        </td>
+      </tr>
+    </table>-->
+    <div class="tile-headline">
+        <h1>User Metrics</h1>
+        <h4>See how users interact with you product. See demographic data, time spent interacting with your product, social media sharing and more.</h4>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="tile">
+        <chart [options]="options" class="chartTile"></chart>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="tile">
+        <chart [options]="hourOptions" class="chartTile"></chart>
+      </div>
+    </div>
   </div>
 
-  <button (click)="showData()">Show Data</button>
-</div>
+   <div class="tile-headline">
+        <h4>Create a partner account to see demographic data for your area and start giving out LüT!</h4>
+    </div>
+</section>
+<section class="customerForm">
+  <div class="container">
+    <div class="test">
+      <form [formGroup]="custForm" (ngSubmit)="onSubmit()">
 
-<!--
-<div class="test">
-</div>-->
+        <md-input-container class="full-width">
+            <input mdInput placeholder="Business Name" [(ngModel)]="customerData.businessName" formControlName="businessName">
+            <md-error [hidden]="custForm.controls.businessName.valid || custForm.controls.businessName.pristine">
+              Business Name is Required
+            </md-error>
+        </md-input-container>
+
+        <md-input-container class="full-width">
+            <input mdInput placeholder="Business Website" [(ngModel)]="customerData.businessWebsite" formControlName="businessWebsite">
+            <md-error [hidden]="custForm.controls.businessWebsite.valid || custForm.controls.businessWebsite.pristine">
+              Business Website is Required
+            </md-error>
+        </md-input-container>
+
+        <table class="full-width">
+          <tr>
+            <td>
+              <md-input-container class="full-width">
+                <input mdInput placeholder="First Name" [(ngModel)]="customerData.firstName" formControlName="firstName">
+                <md-error [hidden]="custForm.controls.firstName.valid || custForm.controls.firstName.pristine">
+                  First Name is Required
+                </md-error>
+              </md-input-container>
+            </td>
+            <td>
+              <md-input-container class="full-width">
+                <input mdInput placeholder="Last Name" [(ngModel)]="customerData.lastName" formControlName="lastName">
+                <md-error [hidden]="custForm.controls.lastName.valid || custForm.controls.lastName.pristine">
+                  Last Name is Required
+                </md-error>
+              </md-input-container>
+            </td>
+          </tr>
+        </table>
+
+        <md-input-container class="full-width">
+              <input mdInput placeholder="Business Email" [(ngModel)]="customerData.email" formControlName="email">
+              <md-error *ngIf="custForm.controls.email.hasError('required') && custForm.controls.email.touched">
+                Email is Required
+              </md-error>
+              <md-error *ngIf="custForm.controls.email.hasError('pattern')">
+                Please Enter a Valid Email Address
+              </md-error>
+        </md-input-container>
+
+        <table class="full-width">
+          <tr>
+            <td width="50%">
+              <md-input-container class="full-width">
+                <input mdInput placeholder="City" formControlName="city" [(ngModel)]="customerData.city">
+                <md-error *ngIf="custForm.controls.city.hasError('required') && custForm.controls.city.touched">
+                  City is Required
+                </md-error>
+              </md-input-container>
+            </td>
+            <td width="20%">
+            <md-input-container class="full-width">
+                <input mdInput placeholder="State" formControlName="state" [(ngModel)]="customerData.state">
+                <md-error *ngIf="custForm.controls.state.hasError('required') && custForm.controls.state.touched">
+                  State is Required
+                </md-error>
+                <md-error *ngIf="custForm.controls.state.hasError('pattern')">
+                  ex: OH
+                </md-error> 
+              </md-input-container>
+            </td>
+            <td width="30%">
+            <md-input-container class="full-width">
+                <input mdInput placeholder="Zip Code" formControlName="zip" [(ngModel)]="customerData.zip">
+                <md-error *ngIf="custForm.controls.zip.hasError('required') && custForm.controls.zip.touched">
+                  Zip Code is Required
+                </md-error>
+                <md-error *ngIf="custForm.controls.zip.hasError('pattern')">
+                  Please Enter a Valid Zip Code
+                </md-error> 
+              </md-input-container>
+            </td>
+          </tr>
+        </table>
+
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Phone Number" formControlName="phone"  [(ngModel)]="customerData.phone">
+          <md-error *ngIf="custForm.controls.phone.hasError('required') && custForm.controls.phone.touched">
+            Phone Number is Required
+          </md-error>
+          <md-error *ngIf="custForm.controls.phone.hasError('pattern')">
+            Please Enter a Valid 10 Digit Phone Number With or Without Hyphens
+          </md-error>
+        </md-input-container>
+
+        <table>
+          <tr>
+            <td>
+              <re-captcha site_key="6LfwIyYUAAAAAFBZoJqEVEHCIYx5ck9RuOfnKCc9" (captchaResponse)="handleCorrectCaptcha($event)" (captchaExpired)="captchaExpired()"></re-captcha>
+            </td>
+            <td class="tdButton">
+              <button type="submit" md-raised-button class="buttonSize" [disabled]="isInvalid()">Submit</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+</div>

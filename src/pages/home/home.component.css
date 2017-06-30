@@ -8,3 +8,7 @@
     max-height: 50%;
     background-color: chartreuse;
 }
+
+.headerPadding {
+    padding-top: 100px;
+}

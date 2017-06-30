@@ -7,6 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReCaptchaModule } from 'angular2-recaptcha';
 import { HttpModule } from '@angular/http';
+import { AngularFireModule } from "angularfire2";
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
+import {ChartModule} from 'angular2-highcharts';
+import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
+import { SlickCarouselComponent } from '../components/slick-carousel';
+
 
 
 
@@ -18,7 +25,8 @@ import { MenuBarComponent } from '../pages/menu/menu.component';
 import { ModelsComponent } from '../pages/models/models.component';
 
 import { AuthService } from '../services/auth.service';
-
+import { ChartService } from '../services/chart.service';
+import { ModelService } from '../services/models.service';
 
 
 
@@ -32,6 +40,14 @@ const appRoutes: Routes = [
   { path: '**', component: HomeComponent }
 ];
 
+declare var require: any;
+export function highchartsFactory() {
+    const hc = require('highcharts/highstock');
+    const dd = require('highcharts/modules/exporting');
+    dd(hc);
+    return hc;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +56,7 @@ const appRoutes: Routes = [
     HomeComponent,
     MenuBarComponent,
     ModelsComponent, 
+    SlickCarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +66,20 @@ const appRoutes: Routes = [
     FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule,
     ReCaptchaModule,
-    HttpModule
+    HttpModule,
+    AngularFireModule.initializeApp(environment.firebase, 'fastaskweb'),
+    AngularFireAuthModule,
+    ChartModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    ChartService,
+    ModelService,
+    {
+      provide: HighchartsStatic,
+      useFactory: highchartsFactory
+	  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

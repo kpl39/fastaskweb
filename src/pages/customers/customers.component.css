@@ -29,3 +29,136 @@ margin-top:-5px;
 
 .selectInput{
     display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}
+
+.buttonSize {
+    font-size: 24px;
+    padding: 15px 16px;
+}
+
+.tdButton {
+    padding-left: 50px;
+}
+
+.headerPadding {
+    padding-top: 100px;
+}
+
+.chartSection {
+}
+
+.benefitsSection {
+    min-height:400px;
+    background-color: #00AEEF;
+}
+
+
+.tile {
+    border-radius: 30px;
+    box-sizing: border-box;
+    box-shadow: 3px 4px 12px 0 rgba(0,0,0,0.17);
+    /*cursor: pointer;*/
+    display: block;
+    width: 100%;
+    height: 445px;
+    width: 525px;
+    position: relative;
+    padding: 25px;
+    background-color: white;
+}
+
+
+.chartTile {
+
+}
+
+.tile-headline {
+    text-align: center;
+    color: black;
+    font-size: 60px;
+    font-weight: 700;
+    padding-bottom: 50px;
+}
+
+.customerForm {
+    background-color: #00AEEF;
+}
+
+.splash {
+    position: relative;
+    height: calc(100% - 46px);
+    min-height: 480px;
+    overflow: hidden;
+    /*z-index: -100;*/
+}
+
+.splash-video-wrapper {
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    min-width: 177.77778vh;
+    height: 100vh;
+    max-height: 200vw;
+    min-height: 60vw;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+
+.splash-video {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.splash-overlay {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.splash-headline {
+    font-weight: 700;
+    height: 250px;
+    width: 90%;
+    max-width: 570px;
+    position: absolute;
+    margin: auto;
+    /*top: 0;*/
+    bottom: 0;
+    /*left: 0;*/
+    right: 0;
+}
+
+.splash-headline h1 {
+    /*color: #00AEEF;*/
+    color: white;
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.splash h3 {
+    font-weight: 500;
+    font-size: 35px;
+    color: white;
+    /*color: #00AEEF;*/
+    letter-spacing: 0;
+    margin: 0 auto;
+    max-width: 570px;
+}
+
+.splash-bottom {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 1;
+    padding: 0 10%;
+}
+
+.backing {
+    background-color: rgba(0,0,0,0.47);
+    padding: 20px;
+    padding-right: 20px;
+    border-top-left-radius: 25px;
+}
