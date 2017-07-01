@@ -48,16 +48,13 @@ export function highchartsFactory() {
     return hc;
 }
 
-const environment = {
-  production: false,
-  firebase: {
+const firebaseConfig = {
     apiKey: "AIzaSyA_83XNGILrHGYhUcjrWcoj46AHGK8_EwM",
     authDomain: "fastask-f8319.firebaseapp.com",
     databaseURL: "https://fastask-f8319.firebaseio.com",
     projectId: "fastask-f8319",
     storageBucket: "fastask-f8319.appspot.com",
     messagingSenderId: "495065049502"
-  }
 };
 
 @NgModule({
@@ -79,7 +76,7 @@ const environment = {
     BrowserAnimationsModule,
     ReCaptchaModule,
     HttpModule,
-    AngularFireModule.initializeApp(environment.firebase, 'fastaskweb'),
+    AngularFireModule.initializeApp(firebaseConfig, 'fastaskweb'),
     AngularFireAuthModule,
     ChartModule
   ],
