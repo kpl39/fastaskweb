@@ -54,8 +54,16 @@ export class ModelsComponent {
 
   getModels() {
       this.modelService.getModels()
-        .then((models) => {
+        .then((models:any) => {
             console.log("MODELS", models);
+            models.forEach((model) => {
+                model.thumbnails.images.forEach((image) =>{
+                    if (image.height === 144) {
+                        model.thumburl = image.url;
+                    }
+                })
+            })
+
             this.models = models;
             this.modelsPerm = models;
             this.initModel(null);

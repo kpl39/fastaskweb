@@ -1,0 +1,242 @@
+<div class="headerPadding"></div>
+<section>
+    <!--<div class="container">
+        <div>
+            <h1>Login with FaceBook</h1>
+            <button md-raised-button (click)="login()">Login</button>
+        </div>
+        <div>
+            <h1>Logout</h1>
+            <button md-raised-button (click)="logout()">Logout</button>
+        </div>
+    </div>-->
+    <div class="container">
+        <div class="centerWidth">
+            <md-tab-group>
+                <md-tab label="User Login">
+                    <div *ngIf="userLogin">
+                        <form [formGroup]="userLoginForm" (ngSubmit)="userEmailLogin()">
+                            <div>
+                                <md-input-container class="full-width">
+                                    <input mdInput placeholder="Email" [(ngModel)]="userCredentials.email" formControlName="email">
+                                    <md-error [hidden]="userLoginForm.controls.email.valid || userLoginForm.controls.email.pristine">
+                                        Email Address is Required
+                                    </md-error>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container class="full-width">
+                                    <input mdInput placeholder="Password" [(ngModel)]="userCredentials.password" formControlName="password" type="password">
+                                    <md-error [hidden]="userLoginForm.controls.password.valid || userLoginForm.controls.password.pristine">
+                                        Password is Required
+                                    </md-error>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <button md-raised-button type="submit" class="full-width" [disabled]="!userLoginForm.valid">Submit</button>
+                            </div>
+                            <br>
+                            <div>
+                                <p (click)="forgotPasswordModal()" class="forgotPassword">Forgot your password?</p>
+                            </div>
+                        </form>
+                        <br>
+                        <div>  
+                            <div>
+                                <button md-raised-button class="blue full-width" (click)="facebookLogin()"><i class="mdi mdi-facebook-box mdi-24px iconAlign"></i><span> Login with Facebook</span></button>
+                            </div>
+                            <div>
+                                <button md-raised-button class="red full-width" (click)="googleLogin()"><i class="mdi mdi-google mdi-24px iconAlign"></i><span> Login with Google</span></button>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <button md-raised-button class="full-width" (click)="toggleSignUp()">Click Here to Sign Up</button>
+                        </div>
+                    </div>
+                    <div *ngIf="!userLogin">
+                        <form [formGroup]="userSignUpForm" (ngSubmit)="userEmailSignUp()">
+                            <div>
+                                <md-input-container class="full-width">
+                                    <input mdInput placeholder="Email" [(ngModel)]="userCredentials.signUpEmail" formControlName="email">
+                                    <md-error [hidden]="userSignUpForm.controls.email.valid || userSignUpForm.controls.email.pristine">
+                                        Email Address is Required
+                                    </md-error>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container class="full-width">
+                                    <input mdInput placeholder="Password" [(ngModel)]="userCredentials.signUpPassword" formControlName="password" type="password">
+                                    <md-error [hidden]="userSignUpForm.controls.password.valid || userSignUpForm.controls.password.pristine">
+                                        Password is Required
+                                    </md-error>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container class="full-width">
+                                    <input mdInput placeholder="Confirm Password" [(ngModel)]="userCredentials.signUpConfirmPassword" formControlName="confirmPassword" type="password">
+                                    <md-error *ngIf="userSignUpForm.controls.confirmPassword.errors?.required && userSignUpForm.controls.confirmPassword.touched">
+                                        <!--&& userSignUpForm.controls.confirmPassword.touched-->
+                                        Please Confirm Password
+                                    </md-error>
+                                    <md-error *ngIf="userSignUpForm.controls.confirmPassword.errors?.MatchPassword">
+                                        Passwords Must Match
+                                    </md-error>
+                                </md-input-container>
+                            </div>
+                            <button md-raised-button type="submit" class="full-width" [disabled]="!userSignUpForm.valid">Submit</button>
+                        </form>
+                        <br>
+                        <div>
+                            <div>
+                                <button md-raised-button class="blue full-width" (click)="facebookLogin()"><i class="mdi mdi-facebook-box mdi-24px iconAlign"></i><span> Sign up with Facebook</span></button>
+                            </div>
+                            <div>
+                                 <button md-raised-button class="red full-width" (click)="googleLogin()"><i class="mdi mdi-google mdi-24px iconAlign"></i><span> Sign up with Google</span></button>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                             <button md-raised-button class="full-width" (click)="toggleSignUp()">Click Here to Login</button>
+                        </div>
+                    </div>
+                </md-tab>
+                <md-tab label="Partner Login">
+                   <div *ngIf="userLogin">
+                        <form [formGroup]="partnerLoginForm" (ngSubmit)="partnerEmailLogin()">
+                            <div>
+                                <md-input-container class="full-width">
+                                    <input mdInput placeholder="Email" [(ngModel)]="partnerCredentials.email" formControlName="email">
+                                    <md-error [hidden]="partnerLoginForm.controls.email.valid || partnerLoginForm.controls.email.pristine">
+                                        Email Address is Required
+                                    </md-error>
+                                </md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container class="full-width">
+                                    <input mdInput placeholder="Password" [(ngModel)]="partnerCredentials.password" formControlName="password" type="password">
+                                    <md-error [hidden]="partnerLoginForm.controls.password.valid || partnerLoginForm.controls.password.pristine">
+                                        Password is Required
+                                    </md-error>
+                                </md-input-container>
+                            </div>
+                            <button md-raised-button type="submit" class="full-width" [disabled]="!partnerLoginForm.valid">Submit</button>
+                        </form>
+                        <br>
+                        <div>
+                            <button md-raised-button class="full-width" (click)="toggleSignUp()">Click Here to Sign Up</button>
+                        </div>
+                    </div>
+                    <div *ngIf="!userLogin">
+                        <form [formGroup]="partnerSignUpForm" (ngSubmit)="partnerEmailSignUp()">
+                        <md-input-container class="full-width">
+                            <input mdInput placeholder="Business Name" [(ngModel)]="partnerData.businessName" formControlName="businessName">
+                            <md-error [hidden]="partnerSignUpForm.controls.businessName.valid || partnerSignUpForm.controls.businessName.pristine">
+                            Business Name is Required
+                            </md-error>
+                        </md-input-container>
+
+                        <md-input-container class="full-width">
+                            <input mdInput placeholder="Business Website" [(ngModel)]="partnerData.businessWebsite" formControlName="businessWebsite">
+                            <md-error [hidden]="partnerSignUpForm.controls.businessWebsite.valid || partnerSignUpForm.controls.businessWebsite.pristine">
+                            Business Website is Required
+                            </md-error>
+                        </md-input-container>
+
+                        <table class="full-width">
+                        <tr>
+                            <td>
+                            <md-input-container class="full-width">
+                                <input mdInput placeholder="First Name" [(ngModel)]="partnerData.firstName" formControlName="firstName">
+                                <md-error [hidden]="partnerSignUpForm.controls.firstName.valid || partnerSignUpForm.controls.firstName.pristine">
+                                First Name is Required
+                                </md-error>
+                            </md-input-container>
+                            </td>
+                            <td>
+                            <md-input-container class="full-width">
+                                <input mdInput placeholder="Last Name" [(ngModel)]="partnerData.lastName" formControlName="lastName">
+                                <md-error [hidden]="partnerSignUpForm.controls.lastName.valid || partnerSignUpForm.controls.lastName.pristine">
+                                Last Name is Required
+                                </md-error>
+                            </md-input-container>
+                            </td>
+                        </tr>
+                        </table>
+
+                        <md-input-container class="full-width">
+                            <input mdInput placeholder="Business Email" [(ngModel)]="partnerData.email" formControlName="email">
+                            <md-error *ngIf="partnerSignUpForm.controls.email.hasError('required') && partnerSignUpForm.controls.email.touched">
+                                Email is Required
+                            </md-error>
+                            <md-error *ngIf="partnerSignUpForm.controls.email.hasError('pattern')">
+                                Please Enter a Valid Email Address
+                            </md-error>
+                        </md-input-container>
+
+                        <table class="full-width">
+                        <tr>
+                            <td width="50%">
+                            <md-input-container class="full-width">
+                                <input mdInput placeholder="City" formControlName="city" [(ngModel)]="partnerData.city">
+                                <md-error *ngIf="partnerSignUpForm.controls.city.hasError('required') && partnerSignUpForm.controls.city.touched">
+                                City is Required
+                                </md-error>
+                            </md-input-container>
+                            </td>
+                            <td width="20%">
+                            <md-input-container class="full-width">
+                                <input mdInput placeholder="State" formControlName="state" [(ngModel)]="partnerData.state">
+                                <md-error *ngIf="partnerSignUpForm.controls.state.hasError('required') && partnerSignUpForm.controls.state.touched">
+                                State is Required
+                                </md-error>
+                                <md-error *ngIf="partnerSignUpForm.controls.state.hasError('pattern')">
+                                ex: OH
+                                </md-error> 
+                            </md-input-container>
+                            </td>
+                            <td width="30%">
+                            <md-input-container class="full-width">
+                                <input mdInput placeholder="Zip Code" formControlName="zip" [(ngModel)]="partnerData.zip">
+                                <md-error *ngIf="partnerSignUpForm.controls.zip.hasError('required') && partnerSignUpForm.controls.zip.touched">
+                                Zip Code is Required
+                                </md-error>
+                                <md-error *ngIf="partnerSignUpForm.controls.zip.hasError('pattern')">
+                                Please Enter a Valid Zip Code
+                                </md-error> 
+                            </md-input-container>
+                            </td>
+                        </tr>
+                        </table>
+
+                        <md-input-container class="full-width">
+                        <input mdInput placeholder="Phone Number" formControlName="phone"  [(ngModel)]="partnerData.phone">
+                        <md-error *ngIf="partnerSignUpForm.controls.phone.hasError('required') && partnerSignUpForm.controls.phone.touched">
+                            Phone Number is Required
+                        </md-error>
+                        <md-error *ngIf="partnerSignUpForm.controls.phone.hasError('pattern')">
+                            Please Enter a Valid 10 Digit Phone Number With or Without Hyphens
+                        </md-error>
+                        </md-input-container>
+
+                        <table>
+                        <tr>
+                            <td>
+                            <re-captcha site_key="6LfwIyYUAAAAAFBZoJqEVEHCIYx5ck9RuOfnKCc9" (captchaResponse)="handleCorrectCaptcha($event)" (captchaExpired)="captchaExpired()"></re-captcha>
+                            </td>
+                            <td class="tdButton">
+                            <button type="submit" md-raised-button class="buttonSize" [disabled]="isInvalid()">Submit</button>
+                            </td>
+                        </tr>
+                        </table>
+                        </form>
+                        <br>
+                        <div>
+                            <button md-raised-button class="full-width" (click)="toggleSignUp()">Click Here to Login</button>
+                        </div>
+                    </div>
+                </md-tab>
+            </md-tab-group>
+        </div>
+    </div>
+</section>

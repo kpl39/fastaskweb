@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Router } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { AuthService } from '../../services/auth.service';
 
@@ -14,35 +14,41 @@ export class MenuBarComponent {
   userAuth: any;
 
   constructor(
-      private auth: AuthService
+      private auth: AuthService,
+      private router: Router
     ) {
       console.log("Constructor");
     }
   
   ngOnInit() {
     console.log('ngOnInit fired');
-    this.getAuth();
+    // this.getAuth();
   }
 
-  login(){
-    this.auth.facebookLogin()
-      .then((res)=> {
-        console.log("FACEBOOK LOGIN", res);
-        this.getAuth();
-      })
+  checkAuth() {
+    return this.auth.isAuthenticated();
   }
 
-  getAuth() {
-    this.auth.getAuthState()
-      .then((user) => {
-        this.userAuth = user;
-      })
+  // login(){
+  //   this.auth.facebookLogin()
+  //     .then((res)=> {
+  //       console.log("FACEBOOK LOGIN", res);
+  //       this.getAuth();
+  //     })
+  // }
+
+  // getAuth() {
+  //   this.auth.getAuthState()
+  //     .then((user) => {
+  //       this.userAuth = user;
+  //       console.log("USER AUTH", user);
+  //     })
    
-  }
+  // }
 
   logout() {
-    this.auth.facebookLogout();
-    this.getAuth();
+    this.auth.logout();
+    this.router.navigate(['/home']);
   }
 
 }

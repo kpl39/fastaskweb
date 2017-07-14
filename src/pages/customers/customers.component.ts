@@ -78,7 +78,12 @@ ngOnInit() {
   }
 
   onSubmit() {
-    console.log("FORM DATA SUBMIT", this.customerData)
+    console.log("FORM DATA SUBMIT", this.customerData);
+    this.auth.addCustomer(this.customerData)
+      .then((id) => {
+        console.log('Response from Add Customer, Customer ID:', id);
+      })
+
   }
 
   isInvalid() {

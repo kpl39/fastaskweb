@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { MdButtonModule, MdCheckboxModule, MdCardModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule } from '@angular/material';
+import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
+import { MdButtonModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule, MdDatepickerModule, MdNativeDateModule, MdRadioModule, MdTabsModule, MdDialogModule } from '@angular/material';
 import { Ng2FileDropModule }  from 'ng2-file-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,9 +10,11 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
-import {ChartModule} from 'angular2-highcharts';
-import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
+import { ChartModule} from 'angular2-highcharts';
+import { HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import { SlickCarouselComponent } from '../components/slick-carousel';
+import { FileUploadModule } from 'ng2-file-upload';
+import { AgmCoreModule, AgmMap, GoogleMapsAPIWrapper } from '@agm/core';
 
 
 
@@ -23,11 +25,17 @@ import { FeaturesComponent } from '../pages/features/features.component';
 import { HomeComponent } from '../pages/home/home.component';
 import { MenuBarComponent } from '../pages/menu/menu.component';
 import { ModelsComponent } from '../pages/models/models.component';
-
+import { AddLutComponent } from '../pages/add-lut/add-lut.component';
+import { DashboardComponent } from '../pages/dashboard/dashboard.component';
+import { LoginComponent } from '../pages/login/login.component';
+import { PasswordResetModalComponent } from '../pages/login/password-modal/password-modal.compenent';
+ 
 import { AuthService } from '../services/auth.service';
 import { ChartService } from '../services/chart.service';
 import { ModelService } from '../services/models.service';
+import { TaskService } from '../services/task.service';
 
+import { PasswordValidation } from '../services/validators/password-match.validator';
 
 
 
@@ -36,6 +44,9 @@ const appRoutes: Routes = [
   { path: 'customers', component: CustomersComponent },
   { path: 'home', component: HomeComponent},
   { path: 'features', component: FeaturesComponent},
+  { path: 'addlut', component: AddLutComponent},
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'login', component: LoginComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: '**', component: HomeComponent }
 ];
@@ -65,29 +76,44 @@ const firebaseConfig = {
     HomeComponent,
     MenuBarComponent,
     ModelsComponent, 
-    SlickCarouselComponent
+    SlickCarouselComponent,
+    AddLutComponent,
+    DashboardComponent,
+    LoginComponent,
+    PasswordResetModalComponent
+    
+  ],
+  entryComponents: [
+    PasswordResetModalComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    MdButtonModule, MdCheckboxModule, MdCardModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule,
+    MdButtonModule, MdCheckboxModule, MdCardModule, MdTooltipModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule, MdDatepickerModule, MdNativeDateModule, MdRadioModule, MdTabsModule, MdDialogModule,
     Ng2FileDropModule,
+    FileUploadModule,
     FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule,
     ReCaptchaModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig, 'fastaskweb'),
     AngularFireAuthModule,
-    ChartModule
+    ChartModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDoKOpAvv_zmg7cTWW3Aong62BtgPeDPYc'
+    })
   ],
   providers: [
     AuthService,
     ChartService,
     ModelService,
+    TaskService,
+    PasswordValidation,
     {
       provide: HighchartsStatic,
       useFactory: highchartsFactory
-	  }
+	  }, 
+    AgmMap, GoogleMapsAPIWrapper
   ],
   bootstrap: [AppComponent]
 })

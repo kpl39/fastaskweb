@@ -51,7 +51,8 @@
             
             <div class="col-md-12">
                     <div class="col-md-3 top-buffer" *ngFor="let model of models" (click)="openModel3D(model.uid)">
-                        <img src={{model.thumbnails.images[3].url}} class="centerImg" >
+                        <!--<img src={{model.thumbnails.images[model.thumbnails.images.].url}} class="centerImg" >-->
+                         <img src={{model.thumburl}} class="centerImg" >
                     </div>
             </div>
         <!--</div>-->

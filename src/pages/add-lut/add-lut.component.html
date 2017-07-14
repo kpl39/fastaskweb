@@ -1,0 +1,196 @@
+<div class="headerPadding">
+
+<section>
+    <h1>ADD LUT</h1>
+    <div class="container">
+        <form [formGroup]="addLutForm" (ngSubmit)="onSubmit()">
+
+
+            <md-input-container class="full-width">
+                <input mdInput placeholder="Title" [(ngModel)]="addLutData.title" formControlName="title">
+                <md-error [hidden]="addLutForm.controls.title.valid || addLutForm.controls.title.pristine">
+                Title is Required
+                </md-error>
+            </md-input-container>
+
+            <md-input-container class="full-width">
+                <input mdInput placeholder="Description" [(ngModel)]="addLutData.description" formControlName="description">
+                <md-error [hidden]="addLutForm.controls.description.valid || addLutForm.controls.description.pristine">
+                Description is Required
+                </md-error>
+            </md-input-container>
+
+            <md-input-container class="full-width">
+                <input mdInput placeholder="Prize" [(ngModel)]="addLutData.prize" formControlName="prize">
+                <md-error [hidden]="addLutForm.controls.prize.valid || addLutForm.controls.prize.pristine">
+                Prize is Required
+                </md-error>
+            </md-input-container>
+
+
+            <md-input-container>
+                <input mdInput [mdDatepicker]="startDatePicker" [min]="minDate" [(ngModel)]="addLutData.startDate" formControlName="startDate" placeholder="Choose a Start Time"> 
+                <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
+                 <md-error [hidden]="addLutForm.controls.startDate.valid || addLutForm.controls.startDate.pristine">
+                    Start Date is Required
+                 </md-error>
+            </md-input-container>
+            <md-datepicker #startDatePicker></md-datepicker>
+
+            <md-input-container>
+                <input mdInput placeholder="Start Time" [(ngModel)]="addLutData.startTime" formControlName="startTime" type="time">
+                <md-error [hidden]="addLutForm.controls.startTime.valid || addLutForm.controls.startTime.pristine">
+                    Start Time is Required
+                </md-error>
+            </md-input-container>
+<!--
+            <md-radio-group [(ngModel)]="addLutData.type" formControlName="type">
+                <md-radio-button class="example-radio-button" value="location">Location</md-radio-button>
+                <md-radio-button class="example-radio-button" value="timed">Timed</md-radio-button>
+            </md-radio-group>-->
+           <div>
+                <md-checkbox [(ngModel)]="addLutData.timed" formControlName="timed">Timed</md-checkbox>
+                <md-checkbox [(ngModel)]="addLutData.locationbased" formControlName="locationbased">Location Based</md-checkbox>
+                <p style="color: red" [hidden]="typeChecked()">
+                    You must select one
+                </p>
+           </div>
+            
+
+
+            <md-input-container>
+                <input mdInput [mdDatepicker]="endDatePicker" [min]="addLutData.startDate || minDate" [(ngModel)]="addLutData.endDate" formControlName="endDate" placeholder="Choose an End Date"> 
+                <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
+                 <md-error [hidden]="addLutForm.controls.endDate.valid || addLutForm.controls.endDate.pristine">
+                    End Date is Required
+                 </md-error>
+            </md-input-container>
+            <md-datepicker #endDatePicker></md-datepicker>
+
+            <md-input-container>
+                <input mdInput placeholder="End Time" [(ngModel)]="addLutData.endTime" formControlName="endTime" type="time">
+                <md-error [hidden]="addLutForm.controls.endTime.valid || addLutForm.controls.endTime.pristine">
+                    End Time is Required
+                </md-error>
+            </md-input-container>
+
+            
+            <div>
+                <h2>Add Picture</h2>
+                <input type="file" #file (change)="uploadFile(file.files)"/>
+                <p [hidden]="validFile !== false" style="color: red">Please select image files only</p>
+                <md-input-container>
+                    <input mdInput placeholder="Image URL" [(ngModel)]="addLutData.imageurl" formControlName="imageurl" (change)="imageUrl()">
+                    <md-error *ngIf="!addLutForm.controls.imageurl.valid && addLutForm.controls.imageurl.touched">
+                        Please provide a valid image url
+                    </md-error>
+                </md-input-container>
+            </div>
+            <div *ngIf="image">
+                <img src={{image}}>
+            </div>
+
+            <div>
+                <md-checkbox [(ngModel)]="addLutData.national" formControlName="national">National</md-checkbox>
+            </div>
+
+
+
+
+            <button type="submit" md-raised-button [disabled]="!addLutForm.valid || !typeChecked()">Submit</button>
+
+        </form>
+    </div>
+</section>
+
+    <!--<div>
+        <h1>Markers</h1>
+        <div *ngFor="let marker of markers">
+            <h4>Marker: {{marker.label}}</h4>
+            <p>Latitude
+        </div>
+    </div>-->
+<section class="mapSection">
+    <div class="col-md-12 col-lg-12">
+        <div class="col-md-9 col-lg-9 mapDiv">
+            <input id="pac-input" class="controls" type="text" placeholder="Enter Location">
+            <div id="map">
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3">
+            <h1 class="top">Locations</h1>
+            <div class="listBackground">
+                <md-list class="centerList">
+                    <md-list-item *ngFor="let marker of markers; let i = index" class="listItem">
+                            <md-icon md-list-icon mdTooltip="lat: {{marker.position.lat().toFixed(5)}} | lng: {{marker.position.lng().toFixed(5)}}" mdTooltipPosition="before">info</md-icon>
+                            <!--<button md-icon-button  mdTooltip="lat: {{marker.position.lat().toFixed(5)}} | lng: {{marker.position.lng().toFixed(5)}}" mdTooltipPosition="before"><md-icon>info</md-icon></button>-->
+                            <h4 md-line>Marker: {{marker.label}}</h4>
+                            <!--<p md-line>lat: {{marker.position.lat().toFixed(5)}}</p>
+                            <p md-line >lng: {{marker.position.lng().toFixed(5)}}</p>-->
+                            <button md-icon-button (click)="removeMarker(i)"><md-icon>delete</md-icon></button>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="modelGallery">
+     <div class="container">
+            <button md-button (click)="clearFilter()" *ngIf="filtered">x</button>
+            <md-input-container class="full-width">
+                <input mdInput placeholder="Filter" [(ngModel)]="filter">
+            </md-input-container>
+            <button md-button (click)="filterModels()">Filter</button>
+            
+            <div class="col-md-12">
+                <div class="col-md-3 top-buffer" *ngFor="let model of models; let i = index">
+                        <div>
+                            <img src={{model.thumburl}} class="centerImg" (click)="openModel3D(model.uid)">
+                        </div>
+                        
+                        <button md-raised-button [ngClass]="{'selectedButton':i === selectedModelIndex, 'selectButton': i !== selectedModelIndex}" (click)="selectModel(model.uid, i)">Select Model</button>
+                        
+                </div>
+            </div>
+    </div>
+    <div class="centerDiv">
+        <div class="phone">
+            <div class="frame">
+                <iframe src="" id="api-frame" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" height="400" width="800"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+    <!--<agm-map [latitude]="lat" [longitude]="lng" (mapClick)="clicked($event)">
+        <agm-marker
+             *ngFor="let m of markers; let i = index"
+            [latitude]="m.lat"
+            [longitude]="m.lng"
+            [label]="m.label"
+            [markerDraggable]="m.draggable">
+        </agm-marker>
+    </agm-map>-->
+    <!--<sebm-google-map [latitude]="lat" [longitude]="lng" (mapClick)="clicked($event)">-->
+
+
+
+        <!--<sebm-google-map-marker 
+          *ngFor="let m of markers; let i = index"
+          (markerClick)="clickedMarker(m.label, i)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)">
+        
+        
+      </sebm-google-map-marker>-->
+    <!--</sebm-google-map>-->
+
+

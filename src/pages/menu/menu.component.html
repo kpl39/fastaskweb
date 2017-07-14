@@ -13,8 +13,12 @@
                 <a md-button routerLink="/features" routerLinkActive="active">Features</a>
                 <a md-button routerLink="/models" routerLinkActive="active">Models</a>
                 <a md-button routerLink="/customers" routerLinkActive="active">Partners</a>
-                <a md-button *ngIf="!userAuth" (click)="login()">Login</a>
-                <a md-button *ngIf="userAuth" (click)="logout()">Logout</a>
+                <a md-button routerLink="/addlut" routerLinkActive="active">Add LüT</a>
+                <a md-button routerLink="/dashboard" *ngIf="checkAuth()" routerLinkActive="active">Dashboard</a>
+                <a md-button *ngIf="!checkAuth()" routerLink="/login" routerLinkActive="active">Login</a>
+                <a md-button *ngIf="checkAuth()" (click)="logout()">Logout</a>
+                <!--<a md-button *ngIf="!userAuth" (click)="login()">Login</a>
+                <a md-button *ngIf="userAuth" (click)="logout()">Logout</a>-->
                 <!--<md-select placeholder="Kyle" name="user">
                     <md-option (click)="logout()">Logout</md-option>
                     <md-option (click)="test()">Profile</md-option>
