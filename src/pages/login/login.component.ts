@@ -8,6 +8,7 @@ import { MdDialog } from '@angular/material';
 import { PasswordResetModalComponent } from './password-modal/password-modal.compenent';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,10}$/;
 const PHONE_REGEX = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/;
 const ZIP_REGEX = /^[0-9]{5}$/;
 const STATE_REGEX = /^[a-zA-Z]{2}$/;
@@ -30,6 +31,10 @@ export class LoginComponent {
   partnerCredentials: any = {};
   userLogin: Boolean = true;
   captcha: Boolean = false;
+  error: String;
+  signUpError: String;
+  partnerLoginError: String;
+  partnerSignUpError: String;
 
   constructor(
       private auth: AuthService,
@@ -60,17 +65,21 @@ ngOnInit() {
         password: new FormControl('', [Validators.required])
     })
 
-    this.partnerSignUpForm = new FormGroup({
-        businessName: new FormControl('', [Validators.required]),
-        businessWebsite: new FormControl('', [Validators.required]),
-        firstName: new FormControl('', [Validators.required]),
-        lastName: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-        city: new FormControl('', [Validators.required]),
-        state: new FormControl('', [Validators.required, Validators.pattern(STATE_REGEX)]),
-        zip: new FormControl('', [Validators.required, Validators.pattern(ZIP_REGEX)]),
-        phone: new FormControl('', [Validators.required, Validators.pattern(PHONE_REGEX)]),
-    })
+     this.partnerSignUpForm = this.fb.group(
+        {
+            businessName: ['', Validators.required],
+            businessWebsite: ['', Validators.required],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEX)])],
+            password: ['', Validators.compose([Validators.required, Validators.pattern(PASSWORD_REGEX)])],
+            confirmPassword: ['', Validators.required],
+            city: ['', Validators.required],
+            state: ['', Validators.compose([Validators.required, Validators.pattern(STATE_REGEX)])],
+            zip: ['', Validators.compose([Validators.required, Validators.pattern(ZIP_REGEX)])],
+            phone: ['', Validators.compose([Validators.required, Validators.pattern(PHONE_REGEX)])]
+        }, {validator: PasswordValidation.MatchPassword}
+    )
 
     this.getAuth();
   }
@@ -82,19 +91,66 @@ ngOnInit() {
 
   facebookLogin(){
     this.auth.facebookLogin()
-      .then((res)=> {
+      .then((res:any)=> {
         console.log("FACEBOOK LOGIN", res);
-        this.getAuth();
-        this.router.navigate(['/dashboard']);
+        
+        this.checkEmailStatus(res.user.email)
+            .then((status) => {
+                console.log("check email status facebook", status);
+                if (status === 'vendor') {
+                    this.getAuth();
+                    this.router.navigate(['/vendor-dashboard']);
+                } else if (status === 'user') {
+                    this.getAuth();
+                    this.router.navigate(['/dashboard']);
+                } else if (status === 'not-found') {
+                   
+                    let pkg = {
+                        email: res.user.email,
+                        profileurl: res.user.photoURL,
+                        username: res.user.displayName,
+                        userid: res.user.uid
+                    };
+                    console.log("user not found, adding now", pkg);
+                    this.auth.addUser(pkg)
+                        .then((res) => {
+                            this.getAuth();
+                            this.router.navigate(['/dashboard']);
+                        })
+                } 
+            })
       })
   }
 
   googleLogin() {
       this.auth.googleLogin()
-        .then((res) => {
+        .then((res:any) => {
             console.log("GOOGLE LOGIN", res);
-            this.getAuth();
-            this.router.navigate(['/dashboard']);
+            this.checkEmailStatus(res.user.email)
+            .then((status) => {
+                console.log("check email status google", status);
+                if (status === 'vendor') {
+                    this.getAuth();
+                    this.router.navigate(['/vendor-dashboard']);
+                } else if (status === 'user') {
+                    this.getAuth();
+                    this.router.navigate(['/dashboard']);
+                } else if (status === 'not-found') {
+                   
+                    let pkg = {
+                        email: res.user.email,
+                        profileurl: res.user.photoURL,
+                        username: res.user.displayName,
+                        userid: res.user.uid
+                    };
+                    console.log("user not found, adding now", pkg);
+                    this.auth.addUser(pkg)
+                        .then((res) => {
+                            this.getAuth();
+                            this.router.navigate(['/dashboard']);
+                        })
+                } 
+            })
         })
   }
 
@@ -118,30 +174,116 @@ ngOnInit() {
   userEmailSignUp() {
       this.auth.createEmailUser(this.userCredentials.signUpEmail, this.userCredentials.signUpPassword)
         //check for error in response and handle errrors
-        .then((res) => {
-            this.router.navigate(['/dashboard']);
+        .then((res:any) => {
+            console.log("RES FROM SIGNUP", res)
+
+            if (res.code === 'auth/email-already-in-use') {
+                this.signUpError = 'That email is already in use. Please login.'
+            } else {
+                let pkg = {
+                    userid: res.uid, 
+                    email: this.userCredentials.signUpEmail,
+                    username: null,
+                    profileurl: 'https://s3.amazonaws.com/fastaskweb/assets/images/stock-avatar.png'
+                };
+
+                console.log('add user pkg', pkg);
+                this.auth.addUser(pkg)
+                    .then((res) => {
+                        console.log('added user', res);
+                        this.router.navigate(['/dashboard']);
+                    })
+                 
+            }
         })
   }
 
   userEmailLogin() {
       this.auth.loginEmailUser(this.userCredentials.email, this.userCredentials.password)
       //check for error in response and handle errrors
-        .then((res) => {
-            this.router.navigate(['/dashboard']);
+        .then((res:any) => {
+            if (res.code) {
+                switch (res.code) {
+                    case 'auth/wrong-password': 
+                        this.partnerLoginError = 'Wrong Password. Please try again'
+                        break;
+                    case 'auth/user-not-found':
+                        this.partnerLoginError = 'Email address not found. Please try again'
+                        break;
+                    case 'auth/invalid-email':
+                        this.partnerLoginError = 'Email address invalid. Please try again'
+                        break;
+                    default: 
+                        this.partnerLoginError = 'Login Error. Please try again';
+                }
+            } else {
+                this.getAuth();
+                this.checkEmailStatus(this.userCredentials.email)
+                    .then((res) => {
+                        if (res === 'vendor') {
+                            this.error = 'This is a partner account. Please use partner login';
+                        } else {
+                            this.router.navigate(['/dashboard']);
+                        }
+                    })
+            }
         })
   }
 
+
+  
+
   partnerEmailLogin() {
       console.log("PARTNER LOGIN", this.partnerCredentials);
-      //this.auth.loginEmailUser(this.partnerCredentials.email, this.userCredentials.password);
+      this.auth.loginEmailUser(this.partnerCredentials.email, this.partnerCredentials.password)
+        .then((res:any) => {
+            if (res.code) {
+                switch (res.code) {
+                    case 'auth/wrong-password': 
+                        this.error = 'Wrong Password. Please try again'
+                        break;
+                    case 'auth/user-not-found':
+                        this.error = 'Email address not found. Please try again'
+                        break;
+                    case 'auth/invalid-email':
+                        this.error = 'Email address invalid. Please try again'
+                        break;
+                    default: 
+                        this.error = 'Login Error. Please try again';
+                }
+            } else {
+                this.checkEmailStatus(this.partnerCredentials.email)
+                    .then((res) => {
+                        console.log("RES partner login ", res );
+                        if (res === 'user') {
+                            this.partnerLoginError = 'This is a user account. Please use the user login';
+                        } else {
+                            this.getAuth();
+                            this.router.navigate(['/vendor-dashboard']);
+                        };
+                    })
+            }
+        })
   }
 
   forgotPasswordModal() {
-      this.dialog.open(PasswordResetModalComponent)
+      this.dialog.open(PasswordResetModalComponent);
   }
 
   partnerEmailSignUp() {
       console.log("PARTNER DATA", this.partnerData);
+      this.auth.createEmailUser(this.partnerData.email, this.partnerData.password)
+        .then((res:any) => {
+            if (res.code === 'auth/email-already-in-use') {
+                this.partnerSignUpError = 'That email is already in use. Please login.'
+            } else {
+                 this.auth.addCustomer(this.partnerData)
+                    .then((res) => {
+                        console.log("RES FROM ADD CUSTOMER")
+                        this.router.navigate(['/vendor-dashboard'])
+                    })
+            }
+        })
   }
 
   handleCorrectCaptcha(event) {
@@ -165,6 +307,22 @@ ngOnInit() {
   toggleSignUp() {
     this.userLogin ? this.userLogin = false : this.userLogin = true;
 
+  }
+
+  checkEmailStatus(email) {
+      return new Promise(resolve => {
+      this.auth.checkEmailStatus(email)
+        .then((res:any) => {
+            console.log("RES FROM CHECK EMAIL", res);
+            if (res.vendor) {
+                resolve('vendor')
+            } else if (res.user) {
+                resolve('user');
+            } else {
+                resolve('not-found');
+            }
+        })
+      })
   }
 
 }

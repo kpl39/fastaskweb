@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
-import { MdButtonModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule, MdDatepickerModule, MdNativeDateModule, MdRadioModule, MdTabsModule, MdDialogModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule, MdDatepickerModule, MdNativeDateModule, MdRadioModule, MdTabsModule, MdDialogModule, MdProgressSpinnerModule, MdSlideToggleModule, MdGridListModule } from '@angular/material';
 import { Ng2FileDropModule }  from 'ng2-file-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +27,11 @@ import { MenuBarComponent } from '../pages/menu/menu.component';
 import { ModelsComponent } from '../pages/models/models.component';
 import { AddLutComponent } from '../pages/add-lut/add-lut.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
+  import { FriendDashboardComponent } from '../pages/dashboard/friend-dashboard/friend-dashboard.component';
+  import { TaskDashboardComponent } from '../pages/dashboard/task-dashboard/task-dashboard.component';
+  import { ScavengerHuntDashboardComponent } from '../pages/dashboard/scavenger-hunt-dashboard/scavenger-hunt-dashboard.component';
+  import { UserDashboardComponent, UnLinkAccountDialog } from '../pages/dashboard/user-dashboard/user-dashboard.component';
+import { VendorDashboardComponent } from '../pages/vendor-dashboard/vendor-dashboard.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { PasswordResetModalComponent } from '../pages/login/password-modal/password-modal.compenent';
  
@@ -42,10 +47,20 @@ import { PasswordValidation } from '../services/validators/password-match.valida
 const appRoutes: Routes = [
   { path: 'models', component: ModelsComponent },
   { path: 'customers', component: CustomersComponent },
-  { path: 'home', component: HomeComponent},
-  { path: 'features', component: FeaturesComponent},
-  { path: 'addlut', component: AddLutComponent},
-  { path: 'dashboard', component: DashboardComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'features', component: FeaturesComponent },
+  { path: 'addlut', component: AddLutComponent },
+  { path: 'dashboard', 
+    component: DashboardComponent,
+    children: [
+        { path: 'user', component: UserDashboardComponent },
+        { path: 'tasks', component: TaskDashboardComponent },
+        { path: 'friends', component: FriendDashboardComponent },
+        { path: 'hunts', component: ScavengerHuntDashboardComponent },
+        { path: '', redirectTo: 'user', pathMatch: 'full'}
+    ]
+  },
+  { path: 'vendor-dashboard', component: VendorDashboardComponent},
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: '**', component: HomeComponent }
@@ -78,18 +93,24 @@ const firebaseConfig = {
     ModelsComponent, 
     SlickCarouselComponent,
     AddLutComponent,
+    VendorDashboardComponent,
+    FriendDashboardComponent,
+    TaskDashboardComponent,
+    ScavengerHuntDashboardComponent,
+    UserDashboardComponent,
     DashboardComponent,
     LoginComponent,
-    PasswordResetModalComponent
-    
+    PasswordResetModalComponent,
+    UnLinkAccountDialog
   ],
   entryComponents: [
-    PasswordResetModalComponent
+    PasswordResetModalComponent, 
+    UnLinkAccountDialog
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    MdButtonModule, MdCheckboxModule, MdCardModule, MdTooltipModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule, MdDatepickerModule, MdNativeDateModule, MdRadioModule, MdTabsModule, MdDialogModule,
+    MdButtonModule, MdCheckboxModule, MdCardModule, MdTooltipModule, MdListModule, MdIconModule, MdInputModule, MdSelectModule, MdDatepickerModule, MdNativeDateModule, MdRadioModule, MdTabsModule, MdDialogModule, MdProgressSpinnerModule, MdSlideToggleModule, MdGridListModule,
     Ng2FileDropModule,
     FileUploadModule,
     FormsModule, ReactiveFormsModule,

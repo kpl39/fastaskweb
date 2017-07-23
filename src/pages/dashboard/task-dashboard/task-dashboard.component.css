@@ -1,0 +1,16 @@
+.blue {
+    color: lightblue;
+}
+
+.headerPadding {
+    padding-top: 100px;
+}
+
+.postsCard {
+    max-height: 75vh;
+}
+
+.listFlow {
+     max-height: 65vh;
+     overflow-y: auto;
+}

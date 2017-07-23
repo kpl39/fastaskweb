@@ -35,6 +35,10 @@
                             <div>
                                 <button md-raised-button type="submit" class="full-width" [disabled]="!userLoginForm.valid">Submit</button>
                             </div>
+                            <div *ngIf="error">
+                                <br>
+                                <p class="errorMessage">{{error}}</p>
+                            </div>
                             <br>
                             <div>
                                 <p (click)="forgotPasswordModal()" class="forgotPassword">Forgot your password?</p>
@@ -85,6 +89,11 @@
                                 </md-input-container>
                             </div>
                             <button md-raised-button type="submit" class="full-width" [disabled]="!userSignUpForm.valid">Submit</button>
+
+                            <div *ngIf="signUpError">
+                                <br>
+                                <p class="errorMessage">{{signUpError}}</p>
+                            </div>
                         </form>
                         <br>
                         <div>
@@ -122,6 +131,10 @@
                             </div>
                             <button md-raised-button type="submit" class="full-width" [disabled]="!partnerLoginForm.valid">Submit</button>
                         </form>
+                        <div *ngIf="partnerLoginError">
+                            <br>
+                            <p class="errorMessage">{{partnerLoginError}}</p>
+                        </div>
                         <br>
                         <div>
                             <button md-raised-button class="full-width" (click)="toggleSignUp()">Click Here to Sign Up</button>
@@ -175,6 +188,35 @@
                         </md-input-container>
 
                         <table class="full-width">
+                            <tr>
+                                <td>
+                                    <md-input-container class="full-width">
+                                        <input mdInput placeholder="Password" [(ngModel)]="partnerData.password" formControlName="password" type="password">
+                                        <md-error *ngIf="partnerSignUpForm.controls.password.hasError('required') && partnerSignUpForm.controls.email.touched">
+                                            Password is Required
+                                        </md-error>
+                                        <md-error *ngIf="partnerSignUpForm.controls.password.errors?.pattern && partnerSignUpForm.controls.password.touched">
+                                            at least 1 capital, 1 lower, 1 number
+                                            <br>
+                                            mix 6 char | max 10 char
+                                        </md-error>
+                                    </md-input-container>
+                                </td>
+                                <td>
+                                    <md-input-container class="full-width">
+                                        <input mdInput placeholder="Confirm Password" [(ngModel)]="partnerData.confirmPassword" formControlName="confirmPassword" type="password">
+                                        <md-error *ngIf="partnerSignUpForm.controls.confirmPassword.errors?.required && partnerSignUpForm.controls.confirmPassword.dirty">
+                                            Please Confirm Password
+                                        </md-error>
+                                        <md-error *ngIf="partnerSignUpForm.controls.confirmPassword.errors?.MatchPassword && partnerSignUpForm.controls.confirmPassword.dirty">
+                                            Passwords Must Match
+                                        </md-error>
+                                    </md-input-container>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="full-width">
                         <tr>
                             <td width="50%">
                             <md-input-container class="full-width">
@@ -210,7 +252,7 @@
                         </table>
 
                         <md-input-container class="full-width">
-                        <input mdInput placeholder="Phone Number" formControlName="phone"  [(ngModel)]="partnerData.phone">
+                        <input mdInput placeholder="Phone Number" formControlName="phone"  [(ngModel)]="partnerData.phone" type="tel">
                         <md-error *ngIf="partnerSignUpForm.controls.phone.hasError('required') && partnerSignUpForm.controls.phone.touched">
                             Phone Number is Required
                         </md-error>
@@ -229,6 +271,9 @@
                             </td>
                         </tr>
                         </table>
+                        <div *ngIf="partnerSignUpError">
+                            <p class="errorMessage">That email is already in use. Please try logging in.</p>
+                        </div>
                         </form>
                         <br>
                         <div>

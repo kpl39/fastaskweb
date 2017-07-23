@@ -1,0 +1,122 @@
+
+<div *ngIf="profile">
+    <div>
+        <div class="col-md-4">
+            <md-card class="cardHeight">
+                <h3>Change Avatar</h3>
+                <img src={{profile.profileurl}} class="avatarImage">
+                <table class="full-width">
+                    <tr>
+                        <td>
+                            <button md-raised-button class="full-width" (click)="chooseAvatar()">
+                                <span mdTooltip="300 X 300">Choose Image</span>
+                            </button>
+                            <input type="file" #file id="fileUpload" (change)="uploadFile(file.files)"/>
+                        </td>
+                        <td>
+                             <button *ngIf="!avatarFinished" md-raised-button class="full-width" (click)="uploadAvatar()" [disabled]="!validFile">
+                                 <span>
+                                     Save Image
+                                </span>
+                             </button>
+                             <button *ngIf="avatarFinished" md-raised-button class="full-width">
+                                 <span mdTooltip="Upload Complete!">Save Image 
+                                 </span>
+                                 <md-icon class="green">done</md-icon>
+                             </button>
+                        </td>
+                    </tr>
+                </table>
+                <p [hidden]="validFile !== false" style="color: red">Please select image files only</p>
+            </md-card>
+        </div>
+        <div class="col-md-4">
+            <md-card class="cardHeight"> 
+            
+                    <h3>Change Username</h3>
+                    <h4>{{profile.username}}</h4>
+                
+                <!--<div>
+                    <div class="col-md-10">
+                        <md-input-container class="full-width">
+                            <input mdInput [(ngModel)]="updatedUsername" placeholder="new username" (ngModelChange)="checkUserName()">
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-2">
+                        <div *ngIf="usernameAvailable">
+                            <span mdTooltip="all yours"><md-icon class="green">done</md-icon></span>
+                        </div>
+                        <div *ngIf="!usernameAvailable">
+                            <span mdTooltip="seat's taken"><md-icon class="red">close</md-icon></span>
+                        </div>
+                    </div>
+                </div>-->
+                  <md-grid-list cols="12">
+                    <md-grid-tile colspan="10" rowspan="1">
+                         <md-input-container class="full-width">
+                            <input mdInput [(ngModel)]="updatedUsername" placeholder="new username" (ngModelChange)="checkUserName()">
+                        </md-input-container>
+                    </md-grid-tile>
+                    <md-grid-tile colspan="2" rowspan="1">
+                        <div *ngIf="usernameAvailable">
+                            <span mdTooltip="all yours"><md-icon class="green">done</md-icon></span>
+                        </div>
+                        <div *ngIf="!usernameAvailable">
+                            <span mdTooltip="seat's taken"><md-icon class="red">close</md-icon></span>
+                        </div>
+                    </md-grid-tile>
+                  </md-grid-list>
+                <!--<div class="col-md-12">-->
+                    <button md-raised-button class="full-width" (click)="updateUsername()" [disabled]="!usernameAvailable">Update Username</button>
+                <!--</div>-->
+                <h3>Change Password</h3>
+                    <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+                        <md-input-container class="full-width" id="passwordForm1">
+                            <input mdInput [(ngModel)]="passwords.password" placeholder="new password" formControlName="password" type="password">
+                        </md-input-container>
+                        <md-input-container class="full-width" id="passwordForm2">
+                            <input mdInput [(ngModel)]="passwords.confirmPassword" placeholder="confirm new username" formControlName="confirmPassword" type="password">
+                            <md-error *ngIf="passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.controls.confirmPassword.dirty">
+                                Passwords Must Match
+                            </md-error>
+                        </md-input-container>
+                        <button md-raised-button type="submit" class="full-width" [disabled]="!passwordForm.valid">Update Password</button>
+                        <p class="greenReset" *ngIf="passwordReset">Password Reset</p>
+                    </form>
+            </md-card>
+        </div>
+        <div class="col-md-4">
+            <md-card class="cardHeight">
+                <h3>Connect Social Apps</h3>
+
+                <md-grid-list cols="4" gutterSize="5px">
+                    <md-grid-tile colspan="3" rowspan="1">
+                        <button md-raised-button class="facebook full-width" (click)="connectAccount('facebook')" [disabled]="connectedAccounts.facebook"><i class="mdi mdi-facebook-box mdi-24px iconAlign"></i><span> {{connectedAccounts.facebook ? 'Connected' : 'Connect Facebook'}}</span></button>
+                    </md-grid-tile>
+                     <md-grid-tile colspan="1" rowspan="1">
+                        <md-slide-toggle [(ngModel)]="connectedAccounts.facebook" (click)="toggleAccount('facebook')"></md-slide-toggle>
+                    </md-grid-tile>
+                    <md-grid-tile colspan="3" rowspan="1">
+                         <button md-raised-button class="twitter full-width" (click)="connectAccount('twitter')" [disabled]="connectedAccounts.twitter"><i class="mdi mdi-twitter mdi-24px iconAlign"></i><span> {{connectedAccounts.twitter ? 'Connected' : 'Connect Twitter'}}</span></button>
+                    </md-grid-tile>
+                     <md-grid-tile colspan="1" rowspan="1">
+                        <md-slide-toggle [(ngModel)]="connectedAccounts.twitter" (click)="toggleAccount('twitter')"></md-slide-toggle>
+                    </md-grid-tile>
+                    <md-grid-tile colspan="3" rowspan="1">
+                        <button md-raised-button class="google full-width" (click)="connectAccount('google')" [disabled]="connectedAccounts.google"><i class="mdi mdi-google mdi-24px iconAlign"></i><span> {{connectedAccounts.google ? 'Connected' : 'Connect Google'}}</span></button>
+                    </md-grid-tile>
+                     <md-grid-tile colspan="1" rowspan="1">
+                        <md-slide-toggle [(ngModel)]="connectedAccounts.google" (click)="toggleAccount('google')"></md-slide-toggle>
+                    </md-grid-tile>
+                </md-grid-list>
+
+                <p>Connecting your account to other social platforms allows you to see LüT that your friends have won.</p>
+
+                
+            
+                
+            </md-card>
+        </div>
+    </div>
+    
+</div>
