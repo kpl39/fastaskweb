@@ -2,7 +2,7 @@
 <div *ngIf="profile">
     <div>
         <div class="col-md-4">
-            <md-card class="cardHeight">
+            <md-card class="cardSize">
                 <h3>Change Avatar</h3>
                 <img src={{profile.profileurl}} class="avatarImage">
                 <table class="full-width">
@@ -31,7 +31,7 @@
             </md-card>
         </div>
         <div class="col-md-4">
-            <md-card class="cardHeight"> 
+            <md-card class="cardSize"> 
             
                     <h3>Change Username</h3>
                     <h4>{{profile.username}}</h4>
@@ -75,7 +75,7 @@
                             <input mdInput [(ngModel)]="passwords.password" placeholder="new password" formControlName="password" type="password">
                         </md-input-container>
                         <md-input-container class="full-width" id="passwordForm2">
-                            <input mdInput [(ngModel)]="passwords.confirmPassword" placeholder="confirm new username" formControlName="confirmPassword" type="password">
+                            <input mdInput [(ngModel)]="passwords.confirmPassword" placeholder="confirm new password" formControlName="confirmPassword" type="password">
                             <md-error *ngIf="passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.controls.confirmPassword.dirty">
                                 Passwords Must Match
                             </md-error>
@@ -86,7 +86,7 @@
             </md-card>
         </div>
         <div class="col-md-4">
-            <md-card class="cardHeight">
+            <md-card class="cardSize">
                 <h3>Connect Social Apps</h3>
 
                 <md-grid-list cols="4" gutterSize="5px">
@@ -110,7 +110,7 @@
                     </md-grid-tile>
                 </md-grid-list>
 
-                <p>Connecting your account to other social platforms allows you to see LüT that your friends have won.</p>
+                <p>Connecting your account to other social platforms allows you to see LüT that your friends have won and invite them to scavenger hunts.</p>
 
                 
             

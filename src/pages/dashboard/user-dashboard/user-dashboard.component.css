@@ -6,8 +6,9 @@
     padding-top: 100px;
 }
 
-.cardHeight {
-    min-height: 370px;
+.cardSize {
+    height: 390px;
+    max-width: 350px;
 }
 
 .iconAlign {
@@ -16,7 +17,7 @@
 
 .avatarImage {
     width: 300px;
-    height: 244px;
+    height: 264px;
 }
 
 .full-width {
