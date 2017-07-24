@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-declare var AWS;
+// declare var AWS;
+declare var FB;
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,14 @@ export class AuthService {
 constructor(
     private http: Http,
     private afAuth: AngularFireAuth
-    ) {}
+    ) {
+        FB.init({
+            appId      : '196079437518291',
+            cookie     : false, 
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.1' // use graph api version 2.5
+        });
+    }
 
     verifyCaptcha(response) {
        let pkg = {
@@ -191,49 +199,6 @@ constructor(
         })
   }
 
-
-//   linkFacebookAccount() {
-//      let provider = new firebase.auth.FacebookAuthProvider();
-//      let user = this.afAuth.auth.currentUser;
-//      return new Promise(resolve => {
-//         user.linkWithPopup(provider)
-//             .then((res) => {
-//                 resolve(res);
-//             })
-//             .catch((err) => {
-//             resolve(err);
-//             })
-//      })
-//   }
-
-//   linkGoogleAccount() {
-//     let provider = new firebase.auth.GoogleAuthProvider();
-//      let user = this.afAuth.auth.currentUser;
-//      return new Promise(resolve => {
-//         user.linkWithPopup(provider)
-//             .then((res) => {
-//                 resolve(res);
-//             })
-//             .catch((err) => {
-//             resolve(err);
-//             })
-//      })
-//   }
-
-//   linkTwitterAccount() {
-//      let provider = new firebase.auth.TwitterAuthProvider();
-//      let user = this.afAuth.auth.currentUser;
-//      return new Promise(resolve => {
-//         user.linkWithPopup(provider)
-//             .then((res) => {
-//                 resolve(res);
-//             })
-//             .catch((err) => {
-//                 resolve(err);
-//             })
-//      })
-//   }
-
   linkAccount(provider) {
    let providerAccount;
     switch (provider) {
@@ -275,4 +240,23 @@ constructor(
   }
 
 
-};
+  getTwitterFriends(twitterid) {
+      return new Promise(resolve => {
+           this.http.get('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/twitterfriends/' + twitterid)
+                .subscribe( res => resolve(res.json().data))
+        })
+  }
+
+   getFacebookFriends() {
+        return new Promise(resolve => {
+            FB.login(function(){
+                FB.api('/me?fields=id,name,email,birthday,picture{url},friends{picture{url},email,name}', function(response) {
+                    console.log("RES FACEBOOK FRIENDS", response);
+                    resolve(response);
+                })
+            });
+        })    
+     };
+
+  
+}

@@ -195,6 +195,8 @@ export class UserDashboardComponent {
                             .then((res) => {
                                 console.log("RES FROM UNLINK", res);
                             })
+                    } else {
+                        this.connectedAccounts[provider] = true;
                     }
                 });
        } else {
