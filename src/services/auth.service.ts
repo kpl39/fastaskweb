@@ -258,5 +258,54 @@ constructor(
         })    
      };
 
-  
+     getLutFriends(userid) {
+         return new Promise(resolve => {
+             this.http.get('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/getfastaskfriends/' + userid)
+                .subscribe(res => resolve(res.json().data))
+         })
+     }
+
+     getUserIdFromFacebook(facebookid) {
+         return new Promise(resolve => {
+             this.http.get('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/getidfromfacebookid/' + facebookid)
+                .subscribe(res => resolve(res.json().data))
+         })
+     }
+
+     sendFriendRequest(pkg) {
+         return new Promise(resolve => {
+             this.http.post('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/friendrequest', pkg)
+                .subscribe(res => resolve(res.json()))
+         })
+     }
+
+     getFriendRequests(userid) {
+         return new Promise(resolve => {
+             this.http.get('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/getfriendrequests/' + userid)
+                .subscribe(res => resolve(res.json().data))
+         })
+     }
+
+     getRequestStatus(userid) {
+         return new Promise(resolve => {
+             this.http.get('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/requeststatus/' + userid)
+                .subscribe(res => resolve(res.json().data))
+         })
+     }
+
+     acceptFriendRequest(pkg) {
+         return new Promise(resolve => {
+             this.http.put('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/acceptrequest', pkg)
+                .subscribe(res => resolve(res.json().data))
+         })
+     }
+
+     getPostsFromUser(userid) {
+         return new Promise(resolve => {
+             this.http.get('http://dev-env.fdxvi7xumg.us-east-1.elasticbeanstalk.com/api/userposts/' + userid)
+                .subscribe(res => resolve(res.json().data))
+         })
+     }
+
+
 }

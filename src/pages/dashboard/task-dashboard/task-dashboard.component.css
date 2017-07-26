@@ -8,9 +8,25 @@
 
 .postsCard {
     max-height: 75vh;
+    overflow-y: auto;
 }
 
-.listFlow {
+.postImageSize {
+     
+    width: 100%;
+}
+
+.cardSpacing {
+    margin-bottom: 30px;
+    /*background-color: lightgray;*/
+    /*width: 250px;*/
+}
+
+.thumbSize {
+    font-size: 15px;
+}
+
+/*.listFlow {
      max-height: 65vh;
      overflow-y: auto;
-}
+}*/

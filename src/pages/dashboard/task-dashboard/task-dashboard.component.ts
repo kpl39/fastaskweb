@@ -10,12 +10,39 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class TaskDashboardComponent {
 
+  userAuth: any;
+  profile: any;
+  posts: any;
+
   constructor(
       private auth: AuthService
     ) {}
 
     ngOnInit() {
         console.log("IN Task DASHBOARD");
+        this.checkLoginStatus();
     }
+
+    checkLoginStatus() {
+        this.auth.getAuthState()
+            .then((userAuth:any) => {
+                this.userAuth = userAuth;
+                console.log("USER AUTH", userAuth);
+                this.auth.getProfile(userAuth.uid)
+                    .then((profile) => {
+                        console.log("PROFILE", profile);
+                        this.profile = profile;
+                        this.getPosts();
+                    })
+            }) 
+      };
+
+      getPosts() {
+        this.auth.getPostsFromUser(this.profile.id)
+          .then((res) => {
+            this.posts = res;
+            console.log("POSTS", this.posts);
+          })
+      }
 
 }

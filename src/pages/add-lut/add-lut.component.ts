@@ -9,6 +9,9 @@ declare var Sketchfab;
 declare var jQuery: any;
 import * as _ from "lodash";
 
+//$#@$#@$@#$#@$#@   Let Users give the markers a label after map click! $#@$#@$#@$#@$#@$@$#@#@
+
+
 const IMAGE_REGEX = /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)$/;
 
 @Component({

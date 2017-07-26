@@ -1,7 +1,17 @@
 .blue {
-    color: lightblue;
+    color: #00AEEF;
 }
 
 .headerPadding {
     padding-top: 100px;
+}
+
+.facebookList {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.twitterList {
+    max-height: 50vh;
+    overflow-y: auto;
 }
