@@ -1,52 +1,54 @@
-
-
-<div class="col-md-4">
-    <md-card class="postsCard">
-        <h1>Posts</h1>
-        <div class="listFlow">
-            <md-card *ngFor="let post of posts; let i = index" class="cardSpacing">
-                <h1>Task Title</h1>
-                <img src={{post.imageurl}} class="postImageSize">
-                <h5>{{post.postdate | date}} - {{post.postdate | date: 'shortTime'}}</h5>
-                <table>
-                    <tr>
-                        <td>
-                           <p><md-icon class="thumbSize">thumb_up</md-icon>Like {{post.postlikes}}</p>
-                        </td>
-                        <td>
-                            <p>Comments: {{post.commentcount}}</p>
-                        </td>
-                    </tr>
-                </table>
+<div class="container">
+    <div class="col-md-12 taskDash">
+        <div class="col-md-4">
+            <md-card class="postsCard">
+                <h1>Posts</h1>
+                <div class="listFlow">
+                    <md-card *ngFor="let post of posts; let i = index" class="cardSpacing">
+                        <h1>Task Title</h1>
+                        <img src={{post.imageurl}} class="postImageSize">
+                        <h5>{{post.postdate | date}} - {{post.postdate | date: 'shortTime'}}</h5>
+                        <table>
+                            <tr>
+                                <td>
+                                <p><md-icon class="thumbSize">thumb_up</md-icon>Like {{post.postlikes}}</p>
+                                </td>
+                                <td>
+                                    <p>Comments: {{post.commentcount}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </md-card>
+                </div>
+            </md-card>
+            <!--<md-card class="postsCard">
+                <md-grid-list cols="2">
+                    <md-grid-tile *ngFor="let post of posts; let i = index" colspan="1" rowspan="1">
+                        <md-list>
+                            <md-list-item>
+                                <h4 md-line>Task Title</h4>
+                            </md-list-item>
+                            <md-list-item>
+                                <img src={{post.imageurl}} class="postImageSize">
+                            </md-list-item>
+                            <md-list-item>
+                                <p>Post Likes: {{post.postlikes}}</p>
+                                <p>Comments: {{post.commentcount}}</p>
+                            </md-list-item>
+                        </md-list>
+                    </md-grid-tile>
+                </md-grid-list>
+            </md-card>-->
+        </div>
+        <div class="col-md-4">
+            <md-card class="postsCard">
+                <h1>Promotions</h1>
             </md-card>
         </div>
-    </md-card>
-    <!--<md-card class="postsCard">
-        <md-grid-list cols="2">
-            <md-grid-tile *ngFor="let post of posts; let i = index" colspan="1" rowspan="1">
-                <md-list>
-                    <md-list-item>
-                         <h4 md-line>Task Title</h4>
-                    </md-list-item>
-                    <md-list-item>
-                          <img src={{post.imageurl}} class="postImageSize">
-                    </md-list-item>
-                    <md-list-item>
-                        <p>Post Likes: {{post.postlikes}}</p>
-                        <p>Comments: {{post.commentcount}}</p>
-                    </md-list-item>
-                </md-list>
-            </md-grid-tile>
-        </md-grid-list>
-    </md-card>-->
-</div>
-<div class="col-md-4">
-    <md-card class="postsCard">
-        <h1>Promotions</h1>
-    </md-card>
-</div>
-<div class="col-md-4">
-    <md-card class="postsCard">
-        <h1>Promotions</h1>
-    </md-card>
+        <div class="col-md-4">
+            <md-card class="postsCard">
+                <h1>Promotions</h1>
+            </md-card>
+        </div>
+    </div>
 </div>

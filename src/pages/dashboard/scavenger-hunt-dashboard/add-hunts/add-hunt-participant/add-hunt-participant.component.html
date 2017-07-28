@@ -1,0 +1,162 @@
+<div *ngIf="participantData">
+    <div class="col-md-12" *ngIf="participantData.teams">
+      <md-card class="helperCard"> 
+      <h4>First, add at least one team.  Then, drag team mates into the team boxes. Try to make even teams. Each team must have at least one member.</h4>
+      </md-card>
+    </div>
+    <div class="col-md-12">
+      <div class="friendBoard">
+            <div class="col-md-4" *ngIf="!participantData.teams"></div>
+
+          <div class="col-md-4" *ngIf="!participantData.teams">
+            <md-card>
+              <md-card-header class="headerColor">
+                <md-card-title>Add Players</md-card-title>
+              </md-card-header>
+              <md-list>
+                  <md-list-item *ngFor="let friend of indvLutFriends; let i = index">
+                      <img md-list-avatar src={{friend.profileurl}}>
+                      <h3 md-line>{{friend.username}} </h3>
+                      <button md-icon-button  *ngIf="!friend.selected" (click)="addFriend(friend, i)"><i class="mdi mdi-check-circle-outline mdi-24px"></i></button>
+                      <button md-icon-button *ngIf="friend.selected" (click)="removeFriend(friend, i)"><i class="mdi mdi-check-circle mdi-24px"></i></button>
+                  </md-list-item>
+                  <md-list-item>
+                    <md-slide-toggle [(ngModel)]="participantData.teams" labelPosition="before">Teams?</md-slide-toggle>
+                  </md-list-item>
+              </md-list>
+            </md-card>
+          </div>
+
+          <div class="col-md-4" *ngIf="participantData.teams">
+            <md-card>
+              <md-card-header class="headerColor">
+                <md-card-title>Add Players</md-card-title>
+              </md-card-header>
+              <ul class="container" [dragula]='"first-bag"' [dragulaModel]='lutFriends'>
+                <li *ngFor="let friend of lutFriends; let i = index">
+                  <div class="listItem">
+                    <img class="avatar" src={{friend.profileurl}}>
+                    <h5 class="userName">{{friend.username}}</h5>
+                    <i class="mdi mdi-arrow-all mdi-24px iconDrag"></i>
+                  </div>
+                </li>
+                <li class="togglePadding">
+                  <md-slide-toggle [(ngModel)]="participantData.teams" labelPosition="before"><h5>Teams?</h5></md-slide-toggle>
+                </li>
+              </ul>
+
+                
+                <!--<table class="full-width container" [dragula]='"first-bag"' [dragulaModel]='lutFriends' >
+                  <tr *ngFor="let friend of lutFriends; let i = index" class="listItem">
+                    <td style="width:20%">
+                      <img class="avatar" src={{friend.profileurl}}>
+                    </td>
+                    <td style="width:80%">
+                      <h4>{{friend.username}}</h4>
+                    </td>
+                  </tr>
+                </table>-->
+                
+
+              <!--<md-list class="container" [dragula]='"first-bag"' [dragulaModel]='lutFriends'>
+                  <md-list-item *ngFor="let friend of lutFriends; let i = index">
+                      <img md-list-avatar src={{friend.profileurl}}>
+                      <h3 md-line>{{friend.username}} </h3>
+                  </md-list-item>
+                  <md-list-item>
+                    <md-slide-toggle [(ngModel)]="teams" labelPosition="before">Teams?</md-slide-toggle>
+                  </md-list-item>
+              </md-list>-->
+            </md-card>
+          </div>
+
+          <div class="col-md-8" *ngIf="participantData.teams">
+            <md-card class="addTeams">
+              <table style="width:100%">
+                <tr>
+                  <td style="width:50%">
+                    <h5 >Add Teams</h5>
+                  </td>
+                  <td style="width:35%">
+                    <md-input-container class="full-width">
+                        <input mdInput placeholder="Team Name" [(ngModel)]="teamTemp" (ngModelChange)="checkTeamName()">
+                    </md-input-container>
+                  </td>
+                  <td style="width:15%">
+                    <button md-raised-button [disabled]="!nameCheck" (click)="addTeam()">Add Team</button>
+                  </td>
+                </tr>
+              </table>
+
+              <div>
+                <!--<div *ngFor="let key of teamKeys; let i = index;" class="col-md-6">-->
+                
+                <md-grid-list cols="2" rowHeight="1:0.5">
+                  <md-grid-tile *ngFor="let key of teamKeys; let i = index;" colspan="1">
+                    <md-card class="cardDims">
+                      <table style="width:100%">
+                        <tr>
+                          <td  style="width:50%">
+                            <h4>{{key}}</h4>
+                          </td>
+                          <td style="width:50%">
+                            <button class="deleteButton" md-icon-button (click)="deleteTeam(key)"><i class="mdi mdi-delete mdi-24px"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="width:50%">
+                            <md-divider></md-divider>
+                          </td>
+                          <td style="width:50%">
+                            <md-divider></md-divider>
+                          </td>
+                        </tr>
+                      </table>
+                      
+                      <!--<div class="container drop" [dragula]='"first-bag"' [dragulaModel]="participantData.teamData[key]">
+                        <div class="listItem" *ngFor="let member of participantData.teamData[key]">
+                            <img class="avatar" src={{member.profileurl}}>
+                            <h5 class="userName">{{member.username}}</h5>
+                            <i class="mdi mdi-arrow-all mdi-24px iconDrag"></i>
+                        </div>
+                      </div>-->
+                      <!--<ul class="container" [dragula]='"first-bag"' [dragulaModel]="participantData.teamData[key]">
+                        <li *ngFor="let member of participantData.teamData[key]">
+                          <div class="listItem">
+                            <img class="avatar" src={{member.username}}>
+                            <h5 class="userName">{{member.username}}</h5>
+                            <i class="mdi mdi-arrow-all mdi-24px iconDrag"></i>
+                          </div>
+                        </li>
+                      </ul>-->
+                      <md-list class='container drop' [dragula]='"first-bag"' [dragulaModel]="participantData.teamData[key]">
+                        <md-list-item *ngFor="let member of participantData.teamData[key]" class="listItemMD"> 
+                          <div class="listItem">
+                            <img class="avatar" src={{member.profileurl}}>
+                            <h5 class="userName">{{member.username}}</h5>
+                            <i class="mdi mdi-arrow-all mdi-24px iconDrag"></i>
+                          </div>
+                        </md-list-item>
+                      </md-list>
+                    </md-card>
+                    <!--</div>-->
+                  </md-grid-tile>
+                </md-grid-list>
+              </div>
+
+            
+            
+            </md-card>
+          </div>
+
+          <div class="col-md-4"  *ngIf="!participantData.teams"></div>
+      </div>
+    </div>
+    <br>
+    <div class="col-md-4 col-md-offset-4">
+      <div class="navButtons">
+          <button md-raised-button class="navButton" routerLink="../basic">Back</button>
+          <button md-raised-button class="navButton" routerLink="../task">Next</button>
+        </div>
+    </div>
+</div>

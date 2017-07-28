@@ -1,1 +1,23 @@
-<h1 class="blue">Scavenger Hunt dashboard</h1>
+
+    <div class="col-md-12 lighterBlue">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-7">
+            <nav md-tab-nav-bar class="whiteText">
+                <!--<a md-tab-link routerLink="your" routerLinkActive="active-link">Your Scavenger Hunts</a>
+                <a md-tab-link routerLink="add" routerLinkActive="active-link">Add Scavenger Hunt</a>-->
+                 <a md-tab-link
+                        *ngFor="let link of navLinks"
+                        [routerLink]="link.link"
+                        routerLinkActive #rla="routerLinkActive"
+                        [active]="rla.isActive">
+                        {{link.label}}
+                    </a>
+            </nav>
+        </div>
+    </div>
+   
+
+
+    <router-outlet></router-outlet>
+

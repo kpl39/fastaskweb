@@ -1,0 +1,108 @@
+.friendBoard{
+    width: 80%;
+    margin: 0px auto 20px auto;
+    min-height: 200px;
+}
+
+.navButtons {
+    text-align: center;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.helperCard {
+    text-align: center;
+    width: 78%;
+    margin: 0px auto 20px auto;
+}
+
+
+.addTeams {
+    min-height: 400px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.cardDims {
+    height: 98%;
+    width: 98%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/*.dropBox {
+        border-style: dashed;
+        min-height: 150px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-top: none;
+        padding: 15px;
+        background-color: lightgrey;
+    }*/
+
+.tile {
+    padding-top: 20px;
+    margin-top: 5px;
+}
+
+.avatar {
+    height: 40px;
+    width:40px;
+    float: left;
+    border-radius: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.listItem {
+    height: 50px;
+    width: 300px;
+    padding: 5px 5px 5px 15px;
+    background-color: #f3f3f3;
+    margin-top: 10px;
+    cursor: grab;
+    border-radius: 10px;
+}
+
+.userName {
+    padding-left: 30px;
+    display: inline-block;
+    padding-top:2.5px;
+    padding-bottom: 2.5px;
+}
+
+.iconDrag {
+    float: right;
+    padding-top: 3px;
+    color: #00AEEF;
+}
+
+.togglePadding {
+    margin-top: 10px;
+}
+
+.drop {
+    height: 70%;
+}
+
+.listItemMD {
+    margin-bottom: 10px;
+}
+
+.deleteButton {
+    float:right;
+}
+
+/*.grid {
+    min-height: 200px;
+}*/

@@ -1,0 +1,59 @@
+ 
+ <div *ngIf="basicData">
+  <form [formGroup]="basicForm">
+
+    <div class="form">
+      <md-input-container class="full-width">
+          <input mdInput placeholder="Title" [(ngModel)]="basicData.title" formControlName="title">
+          <md-error [hidden]="basicForm.controls.title.valid || basicForm.controls.title.pristine">
+            Title is Required
+          </md-error>
+      </md-input-container>
+    </div>
+    <br>
+    <div class="form">
+      <md-input-container class="full-width">
+          <input mdInput [mdDatepicker]="startDatePicker" [min]="minDate" [(ngModel)]="basicData.startDate" formControlName="startDate" placeholder="Choose a Start Date"> 
+          <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
+          <md-error [hidden]="basicForm.controls.startDate.valid || basicForm.controls.startDate.pristine">
+              Start Date is Required
+          </md-error>
+      </md-input-container>
+      <md-datepicker #startDatePicker></md-datepicker>
+    </div>
+    <br>
+    <div class="form">
+      <md-input-container class="full-width">
+          <input mdInput placeholder="Start Time" [(ngModel)]="basicData.startTime" formControlName="startTime" type="time">
+          <md-error [hidden]="basicForm.controls.startTime.valid || basicForm.controls.startTime.pristine">
+              Start Time is Required
+          </md-error>
+      </md-input-container>
+    </div>
+    <div class="form">
+      <md-input-container class="full-width">
+          <input mdInput [mdDatepicker]="endDatePicker" [min]="minDate" [(ngModel)]="basicData.endDate" formControlName="endDate" placeholder="Choose an End Date"> 
+          <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
+          <md-error [hidden]="basicForm.controls.endDate.valid || basicForm.controls.endDate.pristine">
+             End Date is Required
+          </md-error>
+      </md-input-container>
+      <md-datepicker #endDatePicker></md-datepicker>
+    </div>
+    <br>
+    <div class="form">
+      <md-input-container class="full-width">
+          <input mdInput placeholder="End Time" [(ngModel)]="basicData.endTime" formControlName="endTime" type="time">
+          <md-error [hidden]="basicForm.controls.endTime.valid || basicForm.controls.endTime.pristine">
+              End Time is Required
+          </md-error>
+      </md-input-container>
+    </div>
+    <div class="navButton">
+        <!--<button md-raised-button [disabled]="!basicForm.valid" routerLink="../participant">Next</button>-->
+        <button md-raised-button routerLink="../participant">Next</button>
+    </div>
+  </form>
+ </div>
+
+

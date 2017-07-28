@@ -5,3 +5,15 @@
 .headerPadding {
     padding-top: 100px;
 }
+
+.lighterBlue {
+    background-color:#bdbdbd;
+    box-shadow: 0px 0px 8px 2px #6C6D6D;
+    z-index: 0;
+}
+
+.mat-tab-link {
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+}

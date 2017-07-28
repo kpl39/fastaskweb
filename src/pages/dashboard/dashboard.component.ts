@@ -23,7 +23,16 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 export class DashboardComponent {
   userAuth: any;
   profile: any;
-
+  navLinks = [
+      {label: 'User Settings', link: 'user'},
+      {label: 'Your Lut', link: 'tasks'},
+      {label: 'Friends', link: 'friends'},
+      {label: 'Scavenger Hunts', link: 'hunts'}
+  ];
+                    // <a md-tab-link routerLink="user" routerLinkActive="active-link">User Settings</a>
+                    // <a md-tab-link routerLink="tasks" routerLinkActive="active-link">Your LüT</a>
+                    // <a md-tab-link routerLink="friends" routerLinkActive="active-link">Friends</a>
+                    // <a md-tab-link routerLink="hunts" routerLinkActive="active-link">Scavenger Hunts</a>
 
   constructor(
       private auth: AuthService,
@@ -38,11 +47,10 @@ export class DashboardComponent {
         this.auth.getAuthState()
             .then((userAuth) => {
                 if (!this.auth.isAuthenticated()) {
-                    this.router.navigate(['/login'])
+                    this.router.navigate(['login'])
                  }
             }) 
       };
-
     
 
 }

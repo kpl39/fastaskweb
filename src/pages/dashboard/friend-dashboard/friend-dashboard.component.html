@@ -1,69 +1,68 @@
-
-  
-
-
-
-<div class="col-md-4">
-    <md-card class="postsCard">
-        <h3>Your Friends on LuT</h3>
-        <md-list>
-            <md-list-item *ngFor="let friend of lutFriends">
-                <img md-list-avatar src={{friend.profileurl}}>
-                <h3 md-line>{{friend.username}} </h3>
-            </md-list-item>
-        </md-list>
-    </md-card>
-</div>
-<div class="col-md-4">
-    <md-card class="postsCard">
-        <h3>People you may know</h3>
-          <!--<button md-raised-button (click)="getTwitterFriends()">Twitter Friends</button>-->
-          <!--<button md-raised-button (click)="getFacebookFriends()">Facebook Friends</button>-->
-        <div class="facebookList">
-            <md-list>
-                <h1 md-subheader>Facebook</h1>
-                <md-list-item *ngIf="!facebookFriends">
-                    <button md-raised-button (click)="getFacebookFriends()">Facebook Friends</button>
-                </md-list-item>
-                <md-list-item *ngFor="let friend of facebookFriends; let i = index">
-                    <img md-list-avatar src={{friend.picture.data.url}}>
-                    <h3 md-line>{{friend.name}} </h3>
-                    <button md-icon-button mdTooltip="Send Request" mdTooltipPosition="right" *ngIf="!friend.requestee && !friend.requestor" (click)="sendFriendRequest(friend, i)"><md-icon class="blue">person_add</md-icon></button>
-                    <button md-icon-button mdTooltip="Request Sent" mdTooltipPosition="right" *ngIf="friend.requestee && !friend.confirmed"><md-icon class="blue">send</md-icon></button>
-                    <button md-icon-button mdTooltip="Request Confirmed" mdTooltipPosition="right" *ngIf="friend.confirmed"><md-icon class="blue">done</md-icon></button>
-                    <button md-icon-button mdTooltip="Friend Request" mdTooltipPosition="right" *ngIf="friend.requestor && !friend.confirmed"><md-icon class="blue">error</md-icon></button>
-                </md-list-item>
-            </md-list>
+<div class="container">
+    <div class="col-md-12 friendDash">
+        <div class="col-md-4">
+            <md-card class="postsCard">
+                <h3>Your Friends on LuT</h3>
+                <md-list>
+                    <md-list-item *ngFor="let friend of lutFriends">
+                        <img md-list-avatar src={{friend.profileurl}}>
+                        <h3 md-line>{{friend.username}} </h3>
+                    </md-list-item>
+                </md-list>
+            </md-card>
         </div>
+        <div class="col-md-4">
+            <md-card class="postsCard">
+                <h3>People you may know</h3>
+                <!--<button md-raised-button (click)="getTwitterFriends()">Twitter Friends</button>-->
+                <!--<button md-raised-button (click)="getFacebookFriends()">Facebook Friends</button>-->
+                <div class="facebookList">
+                    <md-list>
+                        <h1 md-subheader>Facebook</h1>
+                        <md-list-item *ngIf="!facebookFriends">
+                            <button md-raised-button (click)="getFacebookFriends()">Facebook Friends</button>
+                        </md-list-item>
+                        <md-list-item *ngFor="let friend of facebookFriends; let i = index">
+                            <img md-list-avatar src={{friend.picture.data.url}}>
+                            <h3 md-line>{{friend.name}} </h3>
+                            <button md-icon-button mdTooltip="Send Request" mdTooltipPosition="right" *ngIf="!friend.requestee && !friend.requestor" (click)="sendFriendRequest(friend, i)"><md-icon class="blue">person_add</md-icon></button>
+                            <button md-icon-button mdTooltip="Request Sent" mdTooltipPosition="right" *ngIf="friend.requestee && !friend.confirmed"><md-icon class="blue">send</md-icon></button>
+                            <button md-icon-button mdTooltip="Request Confirmed" mdTooltipPosition="right" *ngIf="friend.confirmed"><md-icon class="blue">done</md-icon></button>
+                            <button md-icon-button mdTooltip="Friend Request" mdTooltipPosition="right" *ngIf="friend.requestor && !friend.confirmed"><md-icon class="blue">error</md-icon></button>
+                        </md-list-item>
+                    </md-list>
+                </div>
 
-        <div class="twitterList">
-            <md-list>
-                <h1 md-subheader>Twitter</h1>
-                <md-list-item *ngIf="!twitterFriends">
-                    <button md-raised-button (click)="getTwitterFriends()">Twitter Friends</button>
-                </md-list-item>
-                <md-list-item *ngFor="let friend of twitterFriends">
-                    <img md-list-avatar src={{friend.profileurl}}>
-                    <h3 md-line>{{friend.username}}</h3>
-                </md-list-item>
-            </md-list>
+                <div class="twitterList">
+                    <md-list>
+                        <h1 md-subheader>Twitter</h1>
+                        <md-list-item *ngIf="!twitterFriends">
+                            <button md-raised-button (click)="getTwitterFriends()">Twitter Friends</button>
+                        </md-list-item>
+                        <md-list-item *ngFor="let friend of twitterFriends">
+                            <img md-list-avatar src={{friend.profileurl}}>
+                            <h3 md-line>{{friend.username}}</h3>
+                        </md-list-item>
+                    </md-list>
+                </div>
+                
+            </md-card>
         </div>
-        
-    </md-card>
-</div>
-<div class="col-md-4">
-    <md-card>
-        <h3>Friend Requests</h3>
-            <md-list>
-                <md-list-item *ngFor="let request of friendRequests; let i = index">
-                    <img md-list-avatar src={{request.profileurl}}>
-                    <h3 md-line>{{request.username}}</h3>
-                    <button md-icon-button mdTooltip="Accept Request" mdTooltipPosition="right" (click)="acceptFriendRequest(request.userid, i)"><md-icon class="blue">thumb_up</md-icon></button>
-                    <button md-icon-button mdTooltip="Decline Request" mdTooltipPosition="right" (click)="declineFriendRequest(request.userid, i)"><md-icon class="blue">thumb_down</md-icon></button>
-                </md-list-item>
-                <md-list-item [hidden]="friendRequests">
-                    <h3 md-line>Currently no friend requests</h3>
-                </md-list-item>
-            </md-list>
-    </md-card>
+        <div class="col-md-4">
+            <md-card>
+                <h3>Friend Requests</h3>
+                    <md-list>
+                        <md-list-item *ngFor="let request of friendRequests; let i = index">
+                            <img md-list-avatar src={{request.profileurl}}>
+                            <h3 md-line>{{request.username}}</h3>
+                            <button md-icon-button mdTooltip="Accept Request" mdTooltipPosition="right" (click)="acceptFriendRequest(request.userid, i)"><md-icon class="blue">thumb_up</md-icon></button>
+                            <button md-icon-button mdTooltip="Decline Request" mdTooltipPosition="right" (click)="declineFriendRequest(request.userid, i)"><md-icon class="blue">thumb_down</md-icon></button>
+                        </md-list-item>
+                        <md-list-item *ngIf="!friendRequests">
+                            <h3 md-line>Currently no friend requests</h3>
+                        </md-list-item>
+                    </md-list>
+            </md-card>
+        </div>
+    </div>
 </div>

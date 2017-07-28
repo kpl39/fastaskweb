@@ -1,6 +1,27 @@
 <div class="headerPadding"></div>
 
-<div class="container">
+  <div class=" col-md-12 lightBlue">
+    
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <nav md-tab-nav-bar >
+                    <!--<a md-tab-link routerLink="user" routerLinkActive="active-link">User Settings</a>
+                    <a md-tab-link routerLink="tasks" routerLinkActive="active-link">Your LüT</a>
+                    <a md-tab-link routerLink="friends" routerLinkActive="active-link">Friends</a>
+                    <a md-tab-link routerLink="hunts" routerLinkActive="active-link">Scavenger Hunts</a>-->
+                    <a md-tab-link
+                        *ngFor="let link of navLinks"
+                        [routerLink]="link.link"
+                        routerLinkActive #rla="routerLinkActive"
+                        [active]="rla.isActive">
+                        {{link.label}}
+                    </a>
+                </nav>
+            </div>
+    </div>
+
+
 
     <!--<md-tab-group>
         <md-tab label="Friend Dash">
@@ -16,24 +37,11 @@
             <user-dashboard></user-dashboard>
         </md-tab>
     </md-tab-group>-->
-    <div>
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-8">
-            <nav md-tab-nav-bar>
-                <a md-tab-link routerLink="user" routerLinkActive="active-link">User Settings</a>
-                <a md-tab-link routerLink="tasks" routerLinkActive="active-link">Your LüT</a>
-                <a md-tab-link routerLink="friends" routerLinkActive="active-link">Friends</a>
-                <a md-tab-link routerLink="hunts" routerLinkActive="active-link">Scavenger Hunts</a>
-            </nav>
-        </div>
-    </div>
+  
    
 
 
     <router-outlet></router-outlet>
-
-</div>
 
 
 

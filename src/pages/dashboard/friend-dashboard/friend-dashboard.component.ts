@@ -87,7 +87,7 @@ export class FriendDashboardComponent {
   sendFriendRequest(user, index) {
       let providers = this.userAuth.providerData;
       let facebookid; 
-      this.facebookFriends[index].requestSent = true;
+      this.facebookFriends[index].requestee = true;
         providers.forEach((provider) => {
             if (provider.providerId === 'facebook.com') {
               facebookid = provider.uid;
@@ -121,6 +121,7 @@ export class FriendDashboardComponent {
             .then((res) => {
               console.log("Friend Request Accepted");
               this.friendRequests.splice(i, 1);
+              this.getRequestStatus();
             })
   }
 
