@@ -1,5 +1,171 @@
-<p>
-  add-hunt-task works!
-</p>
-<button md-raised-button class="navButton" routerLink="../participant">Back</button>
-<button md-raised-button class="navButton" routerLink="../prize">Next</button>
+<div class="col-md-12">
+  
+  
+  
+  <div class="col-md-4">
+    <md-card class="test">
+      <div class="form">
+       <md-input-container class="full-width">
+          <input mdInput placeholder="Title" [(ngModel)]="titleTemp">
+        </md-input-container>
+      </div>
+      <div class="form">
+        <md-input-container class="full-width">
+          <textarea mdInput placeholder="Hint" [(ngModel)]="hintTemp"></textarea>
+        </md-input-container>
+      </div>
+      <div class="form">
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Points" [(ngModel)]="pointsTemp" type="number">
+        </md-input-container>
+      </div>
+      <div class="select">
+          <md-select placeholder="Type" [(ngModel)]="type" (ngModelChange)="checkType()" name="type" class="full-width">
+            <md-option *ngFor="let type of types" [value]="type">
+              {{type}}
+            </md-option>
+          </md-select>
+      </div>
+      <button md-raised-button (click)="addTask()" [disabled]="buttonDisabled()">Add Task</button>
+
+      <div *ngIf="type === 'picture' ">
+        <a (click)="openHelpModal()" class="modalButton">Need Help?</a>
+        <a (click)="openFavoritesModal()" class="modalButton">Need Suggestions</a> 
+      </div>
+      <div *ngIf="type === 'geolocation-model' || type === 'picture-geolocation' ">
+        <h5>Required Items</h5>
+        <md-list>
+            <md-list-item>
+              <table style="width:100%">
+                <tr>
+                  <td style="width:50%" class="labelPadding">
+                    <p>Location</p>
+                  </td>
+                  <td style="width:50%">
+                    <i *ngIf="markers.length < 1" class="mdi mdi-cancel mdi-24px red"></i>
+                    <i *ngIf="markers.length > 0" class="mdi mdi-check-circle mdi-24px green"></i>
+                  </td>
+                </tr>
+              </table>
+            </md-list-item>
+            <!--<md-list-item *ngIf="markers.length > 0">
+              <md-list>
+                <md-list-item>
+                  <table style="width:100%">
+                    <tr>
+                      <td style="width:50%" class="labelPadding">
+                        <p>Latitude</p>
+                      </td>
+                      <td style="width:50%" class="labelPadding">
+                        <p>{{markers[0].position.lat()}}</p>
+                      </td>
+                    </tr>
+                     <tr>
+                      <td style="width:50%" class="labelPadding">
+                        <p>Longitude</p>
+                      </td>
+                      <td style="width:50%" class="labelPadding">
+                        <p>{{markers[0].position.lng()}}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </md-list-item>
+              </md-list>
+            </md-list-item>-->
+            <md-list-item *ngIf="type === 'geolocation-model' ">
+              <table style="width:100%">
+                <tr>
+                  <td style="width:50%" class="labelPadding">
+                    <p>Model</p>
+                  </td>
+                  <td style="width:50%">
+                    <i *ngIf="!selectedModel" class="mdi mdi-cancel mdi-24px red"></i>
+                    <i *ngIf="selectedModel" class="mdi mdi-check-circle mdi-24px green"></i>
+                  </td>
+                </tr>
+              </table>
+            </md-list-item>
+        </md-list>
+      </div>
+
+    </md-card>
+  </div>
+
+  <div class="col-md-8" *ngIf="type === 'picture' ">
+    <!--<md-card class="test"> 
+      <h1>Picture</h1>
+    </md-card>-->
+  </div>
+
+  <div class="col-md-8" [hidden]="type === 'picture' ">
+    <md-card class="mapDiv">
+      <div > 
+        <input id="search-input" class="controls" type="text" placeholder="Enter Location">
+        <div id="taskMap">
+        </div>
+      </div>
+    </md-card>
+  </div>
+
+  <div class="col-md-4">
+    <md-card class="test">
+      <h5>Tasks</h5>
+       <md-list>
+          <md-list-item *ngFor="let task of taskData.tasks; let i = index">
+            
+              <h4 md-line>Title: {{task.title}}</h4>
+              <p md-line>Points: {{task.points}} </p>
+            <md-divider></md-divider>
+          </md-list-item>
+       </md-list>
+    </md-card>
+  </div>
+
+  <div class="col-md-8" [hidden]="type !== 'geolocation-model' ">
+    <md-card class="modelCard">
+            <div class="col-md-8">
+                    <button md-button (click)="clearFilter()" *ngIf="filtered">x</button>
+                    <md-input-container class="full-width">
+                        <input mdInput placeholder="Filter" [(ngModel)]="filter">
+                    </md-input-container>
+                    <button md-button (click)="filterModels()">Filter</button>
+                    
+                    <div class="col-md-12">
+                        <div class="col-md-3 top-buffer" *ngFor="let model of models; let i = index">
+                                <div>
+                                    <img src={{model.thumburl}} class="centerImg" (click)="openModel3D(model.uid)">
+                                </div>
+                                
+                                <button md-raised-button [ngClass]="{'selectedButton':i === selectedModelIndex, 'selectButton': i !== selectedModelIndex}" (click)="selectModel(model.uid, i)">Select Model</button>
+                                
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="centerDiv">
+                    <div class="phone">
+                        <div class="frame">
+                            <iframe src="" id="api-frame" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" height="450" width="240"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </md-card>
+  </div>
+
+  <div class="col-md-8" *ngIf="type === 'picture' ">
+    <!--<md-card class="test"> 
+      <h1>Picture</h1>
+    </md-card>-->
+  </div>
+
+
+</div>
+
+
+<div class="col-md-4 col-md-offset-4">
+    <div class="navButtons">
+        <button md-raised-button routerLink="../participant">Back</button>
+        <button md-raised-button routerLink="../prize">Next</button>
+    </div>
+</div>

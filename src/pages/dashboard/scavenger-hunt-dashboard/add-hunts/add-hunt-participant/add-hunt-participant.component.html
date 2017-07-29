@@ -44,29 +44,6 @@
                   <md-slide-toggle [(ngModel)]="participantData.teams" labelPosition="before"><h5>Teams?</h5></md-slide-toggle>
                 </li>
               </ul>
-
-                
-                <!--<table class="full-width container" [dragula]='"first-bag"' [dragulaModel]='lutFriends' >
-                  <tr *ngFor="let friend of lutFriends; let i = index" class="listItem">
-                    <td style="width:20%">
-                      <img class="avatar" src={{friend.profileurl}}>
-                    </td>
-                    <td style="width:80%">
-                      <h4>{{friend.username}}</h4>
-                    </td>
-                  </tr>
-                </table>-->
-                
-
-              <!--<md-list class="container" [dragula]='"first-bag"' [dragulaModel]='lutFriends'>
-                  <md-list-item *ngFor="let friend of lutFriends; let i = index">
-                      <img md-list-avatar src={{friend.profileurl}}>
-                      <h3 md-line>{{friend.username}} </h3>
-                  </md-list-item>
-                  <md-list-item>
-                    <md-slide-toggle [(ngModel)]="teams" labelPosition="before">Teams?</md-slide-toggle>
-                  </md-list-item>
-              </md-list>-->
             </md-card>
           </div>
 
@@ -88,9 +65,7 @@
                 </tr>
               </table>
 
-              <div>
-                <!--<div *ngFor="let key of teamKeys; let i = index;" class="col-md-6">-->
-                
+              <div>  
                 <md-grid-list cols="2" rowHeight="1:0.5">
                   <md-grid-tile *ngFor="let key of teamKeys; let i = index;" colspan="1">
                     <md-card class="cardDims">
@@ -112,23 +87,7 @@
                           </td>
                         </tr>
                       </table>
-                      
-                      <!--<div class="container drop" [dragula]='"first-bag"' [dragulaModel]="participantData.teamData[key]">
-                        <div class="listItem" *ngFor="let member of participantData.teamData[key]">
-                            <img class="avatar" src={{member.profileurl}}>
-                            <h5 class="userName">{{member.username}}</h5>
-                            <i class="mdi mdi-arrow-all mdi-24px iconDrag"></i>
-                        </div>
-                      </div>-->
-                      <!--<ul class="container" [dragula]='"first-bag"' [dragulaModel]="participantData.teamData[key]">
-                        <li *ngFor="let member of participantData.teamData[key]">
-                          <div class="listItem">
-                            <img class="avatar" src={{member.username}}>
-                            <h5 class="userName">{{member.username}}</h5>
-                            <i class="mdi mdi-arrow-all mdi-24px iconDrag"></i>
-                          </div>
-                        </li>
-                      </ul>-->
+        
                       <md-list class='container drop' [dragula]='"first-bag"' [dragulaModel]="participantData.teamData[key]">
                         <md-list-item *ngFor="let member of participantData.teamData[key]" class="listItemMD"> 
                           <div class="listItem">
@@ -139,7 +98,6 @@
                         </md-list-item>
                       </md-list>
                     </md-card>
-                    <!--</div>-->
                   </md-grid-tile>
                 </md-grid-list>
               </div>

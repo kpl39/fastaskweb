@@ -50,6 +50,8 @@ import { TaskService } from '../services/task.service';
 import { HuntService } from '../services/hunt.service';
 
 import { PasswordValidation } from '../services/validators/password-match.validator';
+import { HelpModalComponent } from '../pages/dashboard/scavenger-hunt-dashboard/add-hunts/add-hunt-task/help-modal/help-modal.component';
+import { FavoritesModalComponent } from '../pages/dashboard/scavenger-hunt-dashboard/add-hunts/add-hunt-task/favorites-modal/favorites-modal.component';
 
 
 
@@ -136,11 +138,15 @@ const firebaseConfig = {
     LoginComponent,
     PasswordResetModalComponent,
     UnLinkAccountDialog,
-    AddHuntPrizeComponent
+    AddHuntPrizeComponent,
+    HelpModalComponent,
+    FavoritesModalComponent
   ],
   entryComponents: [
     PasswordResetModalComponent, 
-    UnLinkAccountDialog
+    UnLinkAccountDialog,
+    HelpModalComponent,
+    FavoritesModalComponent
   ],
   imports: [
     BrowserModule,
