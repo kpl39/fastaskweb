@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { GoogleMapsAPIWrapper, AgmCoreModule } from '@agm/core';
 import { ModelService } from '../../../../../services/models.service';
+import { TaskService } from '../../../../../services/task.service';
+import { AuthService } from '../../../../../services/auth.service';
 import { MdDialog } from '@angular/material';
 import { HelpModalComponent } from './help-modal/help-modal.component';
 import { FavoritesModalComponent } from './favorites-modal/favorites-modal.component';
@@ -17,9 +19,9 @@ export class AddHuntTaskComponent implements OnInit {
   titleTemp: String;
   hintTemp: String;
   pointsTemp: Number;
-  types = [
-    'picture', 'picture-geolocation', 'geolocation-model'
-  ]
+  userAuth: any;
+  profile: any;
+  types = [{name:'Picture Task', value: 'picture' }, {name:'Picture with GeoLocation', value: 'picture-geolocation' }, {name:'GeoLocation with 3D Model', value: 'geolocation-model' }];
   type: String = 'picture';
   taskData = {
     tasks: []
@@ -35,18 +37,38 @@ export class AddHuntTaskComponent implements OnInit {
   selectedModelIndex: any;
   selectedModel: any;
   modelsPerm: any;
+  circle: any;
+  radiusTemp: number = 50;
+  makeGlobal: Boolean = false;
   // labelIterator = 1;
 
 
   constructor(
     private _ngZone: NgZone,
+    private auth: AuthService,
     private modelService: ModelService,
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    public taskService: TaskService
   ) { }
 
   ngOnInit() {
-
+    this.checkLoginStatus();
   }
+
+
+  checkLoginStatus() {
+      this.auth.getAuthState()
+          .then((userAuth:any) => {
+              this.userAuth = userAuth;
+              this.auth.getProfile(userAuth.uid)
+                  .then((profile) => {
+                      console.log("PROFILE", profile);
+                      this.profile = profile;
+                  })
+          }) 
+      };
+
+
 
   addTask() {
     if (this.type === 'picture') {
@@ -56,7 +78,7 @@ export class AddHuntTaskComponent implements OnInit {
        let pkg = { title: this.titleTemp, hint: this.hintTemp, type: this.type, points: this.pointsTemp, lat: this.markers[0].position.lat(), lng: this.markers[0].position.lng() };
        this.taskData.tasks.push(pkg);
     } else {
-       let pkg = { title: this.titleTemp, hint: this.hintTemp, type: this.type, points: this.pointsTemp, lat: this.markers[0].position.lat(), lng: this.markers[0].position.lng(), model: this.selectedModel };
+       let pkg = { title: this.titleTemp, hint: this.hintTemp, type: this.type, points: this.pointsTemp, lat: this.markers[0].position.lat(), lng: this.markers[0].position.lng(), modelid: this.selectedModel.id, modelname: this.selectedModel.name  };
        this.taskData.tasks.push(pkg);
        this.selectedModel = null;
        this.selectedModelIndex = -1;
@@ -84,12 +106,38 @@ export class AddHuntTaskComponent implements OnInit {
     } 
   }
 
+  deleteTask(i) {
+    this.taskData.tasks.splice(i, 1);
+  }
+
   openHelpModal() {
       this.dialog.open(HelpModalComponent);
   }
 
   openFavoritesModal() {
-    this.dialog.open(FavoritesModalComponent);
+    let dialogRef = this.dialog.open(FavoritesModalComponent);
+    dialogRef.componentInstance.userid = this.profile.id;
+      dialogRef.afterClosed()
+       .subscribe(result => {
+         if (result) {
+           this.titleTemp = result.title;
+           this.hintTemp = result.description;
+         } 
+       });
+  }
+
+  addToFavorites() {
+    let pkg = {
+      title: this.titleTemp, 
+      description: this.hintTemp,
+      user_id: this.profile.id,
+      global: this.makeGlobal
+    };
+
+    this.taskService.addFavoriteTask(pkg)
+      .then((res) => {
+        console.log("RES FROM ADD FAVORITE", res);
+      })
   }
 
   buttonDisabled() {
@@ -232,19 +280,55 @@ addMap() {
 addMarker(position) {
     console.log("POSITION", position.lat());
     
-
+    let marker;
     if (this.markers.length < 1) {
-        let marker = new google.maps.Marker({
+      if (this.type === 'picture-geolocation') {
+         marker = new google.maps.Marker({
             position: position,
-            map: this.map
+            map: this.map,
+            icon:'http://maps.google.com/mapfiles/kml/pal4/icon46.png',
+            draggable: true
         });
-        // this.labelIterator ++;
-        this.markers.push(marker);
-        console.log("markers", this.markers)
-        this._ngZone.run(() => console.log("zone"));
+      } else {
+        marker = new google.maps.Marker({
+            position: position,
+            map: this.map,
+            icon:'http://maps.google.com/mapfiles/kml/pal4/icon13.png',
+            draggable: true
+        });
+      } 
+       
+      if (this.type === 'picture-geolocation') {
+        let circleOptions = {
+            strokeColor: 'rgb(0, 0, 255)',
+            strokeWidth: 0.2,
+            fillColor: 'rgba(0, 0, 255, 0.4)',
+            center: position,
+            radius: this.radiusTemp * 0.3048,
+            map: this.map
+        };
+
+        this.circle = new google.maps.Circle(circleOptions);
+        marker.addListener('drag', (event) => {
+            this.circle.setCenter(event.latLng);
+        })
+      }
+
+      this.markers.push(marker);
+      console.log("MARKER LAT ON ADD", this.markers[0].position.lat())
+      this._ngZone.run(() => console.log("zone"));
     }
 
     // this.markerList.push({lat: position.lat(), lng: position.lng(), label: this.markerList.length + 1})
+}
+
+radiusChange(event) {
+  let radius = event.value * 0.3048;
+  this.radiusTemp = event.value;
+  if (this.circle) {
+    this.circle.setRadius(radius);
+  }
+  
 }
 
 removeMarker() {
@@ -253,6 +337,8 @@ removeMarker() {
     console.log("AFTER", this.markers);
     this.markers.splice(0, 1);
     console.log("AFTER AFTER", this.markers);
+    this.circle.setMap(null);
+    this.radiusTemp = 50;
     
 }
 
@@ -339,10 +425,10 @@ clearFilter() {
     this.filtered = false;
 }
 
-selectModel(model, index) {
-      console.log("SELECTED MODEL", model);
+selectModel(modelid, index, name) {
+      console.log("SELECTED MODEL", modelid, name);
       this.selectedModelIndex = index;
-      this.selectedModel = model;
+      this.selectedModel = {id: modelid, name: name};
   }
 
 

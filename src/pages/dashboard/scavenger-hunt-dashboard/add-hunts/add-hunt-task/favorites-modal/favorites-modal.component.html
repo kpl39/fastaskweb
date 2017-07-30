@@ -1,3 +1,38 @@
 <div class="modalDimensions">
-  <h1>You're My Favorite</h1>
+  <div class="col-md-12">
+    <div class="col-md-6">
+     <md-card class="cardPadding cardDimension">
+          <md-card-header>
+            <h3>Your Favorites</h3>
+          </md-card-header>
+          <md-card *ngFor="let fav of userFavorites; let i = index" class="cardPadding">
+            <md-card-header>
+              <h4>{{fav.title}}</h4>
+            </md-card-header>
+            <md-card-content>
+              <p>{{fav.description}}</p>
+            </md-card-content>
+            <button md-raised-button class="full-width blue" (click)="dialogRef.close(fav)">Use This One</button>
+          </md-card>
+      </md-card>
+    </div>
+    <div class="col-md-6">
+      <md-card class="cardPadding cardDimension">
+          <md-card-header>
+            <h3>LuT Favorites</h3>
+          </md-card-header>
+          <md-card *ngFor="let fav of globalFavorites; let i = index" class="cardPadding">
+            <md-card-header>
+              <h4>{{fav.title}}</h4>
+            </md-card-header>
+            <md-card-content>
+              <p>{{fav.description}}</p>
+            </md-card-content>
+            <button md-raised-button class="full-width blue" (click)="dialogRef.close(fav)">Use This One</button>
+          </md-card>
+      </md-card>
+  
+    </div>
+  </div>
+
 </div>

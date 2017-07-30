@@ -1,3 +1,57 @@
 <div class="modalDimensions">
-  <h1>Need Help?</h1>
+    <h2 md-dialog-title>How to Add Tasks</h2>
+    <!--<p><strong><strong><br /><br /></strong></strong></p>-->
+    <p><strong>Types</strong><span style="font-weight: 400;"> - There are three available types of tasks to choose from, </span><strong>Picture, Picture with GeoLocation and GeoLocation with 3D Model. </strong></p>
+    <p><strong><strong>&nbsp;</strong></strong></p>
+    <p><strong>Picture Tasks - </strong><span style="font-weight: 400;">The player must take a picture of the criteria in the description inside the mobile app. This type of task does not require the player to be in a specific location.</span></p>
+    <p><strong>&nbsp; &nbsp; &nbsp;Required Items</strong></p>
+    <ul>
+    <li><strong><strong>Title - </strong><span style="font-weight: 400;">Short name to identify the task.</span></strong></li>
+    <li style="font-weight: 400;"><strong>Description</strong><span style="font-weight: 400;"> - Tells the player what criteria must be in the picture. </span></li>
+    <li style="font-weight: 400;"><strong>Points - </strong><span style="font-weight: 400;">How many points the user gets for completing the task. Naturally, the harder the task the more points. </span></li>
+    </ul>
+    <p><strong>&nbsp; &nbsp; &nbsp;Example </strong></p>
+    <ul>
+    <li style="font-weight: 400;"><strong>Title - </strong><span style="font-weight: 400;">Bus Stop Handstand </span></li>
+    <li style="font-weight: 400;"><strong>Description - </strong><span style="font-weight: 400;">Find a bus-stop bench with a realtor advertisement and do a handstand on the bench. </span></li>
+    <li style="font-weight: 400;"><strong>Points - </strong><span style="font-weight: 400;"> 200</span></li>
+    </ul>
+    <p><strong><strong>&nbsp;</strong></strong></p>
+    <p><strong>Picture with Geolocation Tasks - </strong><span style="font-weight: 400;">The player must take a picture of an item or landmark at a specified location. The player must be within a certain distance to the location in order to complete the task successfully. If the player submits the task and is not in range to the location they will be told to try again. </span></p>
+    <p><strong>&nbsp; &nbsp; &nbsp;Required Items</strong></p>
+    <ul>
+    <li><strong><strong>Title - </strong><span style="font-weight: 400;">Short name to identify the task.</span></strong></li>
+    <li><strong><span style="font-weight: 400;"><strong>Description</strong> - Give the player hints on where the location might be and tell them what needs to be in the picture.</span></strong></li>
+    <li><strong>Points - </strong>How many points the user gets for completing the task. Naturally, the harder the task the more points.</li>
+    <li><strong>Location</strong> - Click on the map to choose the location. You can remove the marker by clicking &ldquo;Remove Marker&rdquo; on the map. You can also drag the marker to a different location.</li>
+    <li><strong>Range - </strong>Tell the user how far away from the location they can be. A circle will be drawn around the marker with the supplied radius (in feet). If the user needs to take a picture of a large building make sure the radius is large enough that the user can take a picture from a distance.</li>
+    </ul>
+    <p><strong>&nbsp; &nbsp; &nbsp;Example</strong></p>
+    <ul>
+    <li><strong>Title - </strong>King Kong Ain&rsquo;t Got $hi+ on Me</li>
+    <li><strong>Description - </strong>Take a picture of the famous landmark that the larger than life gorilla scaled.</li>
+    <li><strong>Points -&nbsp;</strong>500</li>
+    <li><strong>Location - </strong>Search for Empire State Building in the map&rsquo;s search box. Click in the middle of the building.</li>
+    <li><strong>Radius - </strong>Move the radius slider bar until the circle is completely around the building with some padding around the edges.</li>
+    </ul>
+    <div class="imageContainer">
+        <img src="https://s3.amazonaws.com/fastaskweb/assets/images/helpMapWrong.png" style="width:90%">
+        <p>This Radius is too small. The player would have to be inside the building.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="imageContainer">
+        <img src="https://s3.amazonaws.com/fastaskweb/assets/images/helpMapRight.png" class="imgDimensions">
+        <p>This radius will allow the player to take a picture of the outside of the building.</p>
+    </div>
 </div>
+
+<div>
+    <md-dialog-actions md-dialog-title class="marginButton">
+      <button md-button md-dialog-close>Got It</button>
+    </md-dialog-actions>
+</div>
+
+   <!--<i class="mdi mdi-close-box-outline mdi-24px"></i>-->
+
+
+   
