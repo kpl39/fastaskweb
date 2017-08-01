@@ -111,7 +111,7 @@ export class AddHuntTaskComponent implements OnInit {
   }
 
   openHelpModal() {
-      this.dialog.open(HelpModalComponent);
+      this.dialog.open(HelpModalComponent, { panelClass: 'help-dialog' });
   }
 
   openFavoritesModal() {

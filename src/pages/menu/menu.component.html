@@ -1,11 +1,11 @@
-<div class="navbar navbar-fixed-top">
-    <!--<div class="row">-->
+<!--<div class="navbar navbar-fixed-top">
+
         <div class="col-md-3">
         </div>
         <div class="col-md-1 logo">
-            <!--<a class="navbarlogo" routerLink="/"></a>-->
+  
                 <img src="../../assets/images/lutLogo.png" class="logo">
-                <!--<h1 class="logo">fasTask</h1>-->
+
         </div>
         <div class="col-md-6">
             <nav class="links">
@@ -17,15 +17,108 @@
                 <a md-button routerLink="/dashboard" *ngIf="checkAuth()" routerLinkActive="active">Dashboard</a>
                 <a md-button *ngIf="!checkAuth()" routerLink="/login" routerLinkActive="active">Login</a>
                 <a md-button *ngIf="checkAuth()" (click)="logout()">Logout</a>
-                <!--<a md-button *ngIf="!userAuth" (click)="login()">Login</a>
-                <a md-button *ngIf="userAuth" (click)="logout()">Logout</a>-->
-                <!--<md-select placeholder="Kyle" name="user">
-                    <md-option (click)="logout()">Logout</md-option>
-                    <md-option (click)="test()">Profile</md-option>
-                </md-select>-->
+     
             </nav>
         </div>
         <div class="col-md-2">
         </div>
-    <!--</div>-->
+
+</div>-->
+
+
+<div class="navbar navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="mdi mdi-menu mdi-48px white"></i>
+            </button>
+            <a class="navbar-brand" routerLink="/">
+                    <img src="../../assets/images/lutLogo.png" class="logo">
+            </a>
+        </div>
+        <div class="navbar-collapse collapse links" id="navToggle">
+            <ul class="nav navbar-nav">
+                <li><a md-button routerLink="/" routerLinkActive="active">Home</a></li>
+                <li><a md-button routerLink="/features" routerLinkActive="active">Features</a></li>
+                <li><a md-button routerLink="/models" routerLinkActive="active">Models</a></li>
+                <li><a md-button routerLink="/customers" routerLinkActive="active">Partners</a></li>
+                <li><a md-button routerLink="/addlut" routerLinkActive="active">Add LüT</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" md-button *ngIf="checkAuth()" routerLinkActive="active">Dashboard<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a md-button routerLink="/dashboard/user" routerLinkActive="active">Profile Settings</a></li>
+                            <li><a md-button routerLink="/dashboard/tasks" routerLinkActive="active">Your LüT</a></li>
+                            <li><a md-button routerLink="/dashboard/friends" routerLinkActive="active">Friends</a></li>
+                            <li><a md-button routerLink="/dashboard/hunts" routerLinkActive="active">Scavenger Hunts</a></li>
+                        </ul>
+                </li>
+                <li><a md-button *ngIf="!checkAuth()" routerLink="/login" routerLinkActive="active">Login</a></li>
+                <li><a md-button *ngIf="checkAuth()" (click)="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
+
+
+<!--<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Page 1</a></li>
+        <li><a href="#">Page 2</a></li> 
+        <li><a href="#">Page 3</a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>-->
+
+<!--<nav class="navbar navbar-toggleable-md fixed-top">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" routerLink="/">
+    <img src="../../assets/images/lutLogo.png" class="logo">
+  </a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2">
+      <li class="nav-item">
+        <a class="nav-link" md-button routerLink="/" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" md-button routerLink="/features" routerLinkActive="active">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" md-button routerLink="/models" routerLinkActive="active">Models</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" md-button routerLink="/customers" routerLinkActive="active">Partners</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" md-button routerLink="/addlut" routerLinkActive="active">Add LüT</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" md-button routerLink="/dashboard" *ngIf="checkAuth()" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" md-button *ngIf="!checkAuth()" routerLink="/login" routerLinkActive="active">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" md-button *ngIf="checkAuth()" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>-->

@@ -23,7 +23,7 @@
 }
 
 .links {
-    margin-top: 10px;
+    padding-top: 10px;
     color: white;
 }
 /*.logotext {
@@ -31,3 +31,19 @@
     margin-bottom: auto;
     vertical-align: middle;
 }*/
+
+
+.navbar-brand {
+    padding: 0px;
+}
+
+.navbar-toggle {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.white {
+    color: white;
+}
+
+/*.nav > li*/

@@ -10,6 +10,6 @@ export class HomeComponent {
 
   ngOnInit() {
     let browser = navigator.userAgent.toLowerCase();
-    alert(JSON.stringify(browser));
+    // alert(JSON.stringify(browser));
   }
 }
