@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
-    private url ='http://lutapi-dev.us-east-1.elasticbeanstalk.com';
+    private url ='https://lutapi-dev.us-east-1.elasticbeanstalk.com';
     private socket;
 
     constructor() {}

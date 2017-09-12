@@ -48,7 +48,7 @@ constructor(
     sendQuery(pkg) {
         console.log("IN SEND QUERY", pkg);
         return new Promise(resolve => {
-             this.http.post('http://lutapi-dev.us-east-1.elasticbeanstalk.com/api/taskquery', pkg)
+             this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/taskquery', pkg)
                 .subscribe((res) => {
                     let data = res.json().data;
                     let query = {time: new Date().toISOString(), data: res}
