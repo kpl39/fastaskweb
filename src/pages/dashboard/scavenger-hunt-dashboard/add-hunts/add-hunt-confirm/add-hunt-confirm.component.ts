@@ -291,7 +291,7 @@ prize: any;
 
   addUsersToTeams(teams, huntID) {
     let teamAssignment = [];
-    _.forEach(this.participantData.teamData, (members, team) => {
+    _.forEach(this.participantData.teamData, (members:any, team:any) => {
       for (let i = 0; i < teams.length; i++) {
         if (team == teams[i].title) {
           for (let j = 0; j < members.length; j++) {
