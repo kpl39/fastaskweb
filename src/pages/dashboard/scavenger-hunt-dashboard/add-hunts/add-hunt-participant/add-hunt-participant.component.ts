@@ -93,7 +93,9 @@ export class AddHuntParticipantComponent implements OnInit {
   removeFriend(friend, index) {
     this.indvLutFriends[index].selected = false;
     for (let i = 0; i < this.participantData.invitedFriends.length; i++) {
-      if (friend.id == this.participantData.invitedFriends[i]) {
+      
+      if (friend.id == this.participantData.invitedFriends[i].id) {
+        console.log("SPLICED")
         this.participantData.invitedFriends.splice(i, 1);
       }
     }

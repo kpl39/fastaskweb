@@ -1,0 +1,121 @@
+
+<div *ngIf="vendorInfo" class="container">
+    <div class="userDash">
+        <div class="col-md-4">
+            <md-card class="cardSize">
+                <h3>Change Avatar</h3>
+                <img src={{vendorInfo.logourl}} class="avatarImage">
+                <table class="full-width">
+                    <tr>
+                        <td>
+                            <button md-raised-button class="full-width" (click)="chooseAvatar()">
+                                <span mdTooltip="300 X 300">Choose Image</span>
+                            </button>
+                            <input type="file" #file id="fileUpload" (change)="uploadFile(file.files)"/>
+                        </td>
+                        <td>
+                             <button *ngIf="!avatarFinished" md-raised-button class="full-width" (click)="uploadAvatar()" [disabled]="!validFile">
+                                 <span>
+                                     Save Image
+                                </span>
+                             </button>
+                             <button *ngIf="avatarFinished" md-raised-button class="full-width">
+                                 <span mdTooltip="Upload Complete!">Save Image 
+                                 </span>
+                                 <md-icon class="green">done</md-icon>
+                             </button>
+                        </td>
+                    </tr>
+                </table>
+                <p [hidden]="validFile !== false" style="color: red">Please select image files only</p>
+            </md-card>
+        </div>
+        <div class="col-md-4">
+            <md-card class="cardSize"> 
+            
+                    <h3>Change Email</h3>
+                    <h4>{{vendorInfo.email}}</h4>
+                
+                  <!--<md-grid-list cols="12">
+                    <md-grid-tile colspan="12" rowspan="1">-->
+                         <md-input-container class="full-width">
+                            <input mdInput [(ngModel)]="updateInfo.email" placeholder="new email">
+                        </md-input-container>
+                    <!--</md-grid-tile>-->
+                    <!--<md-grid-tile colspan="2" rowspan="1">
+                        <div *ngIf="usernameAvailable">
+                            <span mdTooltip="all yours"><md-icon class="green">done</md-icon></span>
+                        </div>
+                        <div *ngIf="!usernameAvailable">
+                            <span mdTooltip="seat's taken"><md-icon class="red">close</md-icon></span>
+                        </div>
+                    </md-grid-tile>-->
+                  <!--</md-grid-list>-->
+                <!--<div class="col-md-12">-->
+                    <button md-raised-button class="full-width" (click)="updateUsername()">Update Email</button>
+                <!--</div>-->
+                <h3>Change Password</h3>
+                    <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+                        <md-input-container class="full-width" id="passwordForm1">
+                            <input mdInput [(ngModel)]="passwords.password" placeholder="new password" formControlName="password" type="password">
+                        </md-input-container>
+                        <md-input-container class="full-width" id="passwordForm2">
+                            <input mdInput [(ngModel)]="passwords.confirmPassword" placeholder="confirm new password" formControlName="confirmPassword" type="password">
+                            <md-error *ngIf="passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.controls.confirmPassword.dirty">
+                                Passwords Must Match
+                            </md-error>
+                        </md-input-container>
+                        <button md-raised-button type="submit" class="full-width" [disabled]="!passwordForm.valid">Update Password</button>
+                        <p class="greenReset" *ngIf="passwordReset">Password Reset</p>
+                    </form>
+            </md-card>
+        </div>
+        <div class="col-md-4">
+            <md-card class="cardSize">
+              <form [formGroup]="companyInfoForm" (ngSubmit)="updateProfile()">
+                  <div>
+                      <md-input-container class="full-width">
+                          <input mdInput placeholder="Address" [(ngModel)]="vendorInfo.address" formControlName="address">
+                          <md-error [hidden]="companyInfoForm.controls.address.valid || companyInfoForm.controls.address.pristine">
+                              Address is Required
+                          </md-error>
+                      </md-input-container>
+                      <md-input-container class="full-width">
+                          <input mdInput placeholder="City" [(ngModel)]="vendorInfo.city" formControlName="city">
+                          <md-error [hidden]="companyInfoForm.controls.city.valid || companyInfoForm.controls.city.pristine">
+                              City is Required
+                          </md-error>
+                      </md-input-container>
+                      <md-input-container class="full-width">
+                          <input mdInput placeholder="Zip Code" [(ngModel)]="vendorInfo.zip" formControlName="zip">
+                          <md-error [hidden]="companyInfoForm.controls.zip.valid || companyInfoForm.controls.zip.pristine">
+                              Zip Code is Required
+                          </md-error>
+                      </md-input-container>
+                      <md-input-container class="full-width">
+                          <input mdInput placeholder="Country" [(ngModel)]="vendorInfo.country" formControlName="country">
+                          <md-error [hidden]="companyInfoForm.controls.country.valid || companyInfoForm.controls.country.pristine">
+                              Country is Required
+                          </md-error>
+                      </md-input-container>
+                      <md-input-container class="full-width">
+                          <input mdInput placeholder="Phone" [(ngModel)]="vendorInfo.phone" formControlName="phone">
+                          <md-error [hidden]="companyInfoForm.controls.phone.valid || companyInfoForm.controls.phone.pristine">
+                              Phone Number is Required
+                          </md-error>
+                      </md-input-container>
+                      <md-input-container class="full-width">
+                          <input mdInput placeholder="Website" [(ngModel)]="vendorInfo.website" formControlName="website">
+                          <md-error [hidden]="companyInfoForm.controls.website.valid || companyInfoForm.controls.website.pristine">
+                              Website is Required
+                          </md-error>
+                      </md-input-container>
+                  </div>
+                   <button md-raised-button class="full-width" [disabled]="!companyInfoForm.valid">Update</button>
+              </form>
+             
+            </md-card>
+        </div>
+    </div>
+    
+</div>

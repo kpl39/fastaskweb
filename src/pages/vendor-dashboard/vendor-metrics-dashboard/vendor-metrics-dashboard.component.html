@@ -1,0 +1,58 @@
+<div class="row"> 
+  <div class="col-md-3">
+    <md-card>
+      <h1>Camapaigns</h1>
+  
+          <md-card  *ngFor="let task of tasks; let i = index" (click)="makeActiveCampaign(i)" class="selectCampaign">
+           <h1>{{task.title}}</h1>
+          </md-card>
+           
+
+    </md-card>
+  </div>
+  <div class="col-md-9">
+    <md-card>
+      <h1>DATA</h1>
+      <div *ngIf="activeCampaign">
+        <div >
+          <h4 class="chartOptions">Title: {{activeCampaign.title}}</h4>
+          <md-select placeholder="Chart Type" [(ngModel)]="queryOptions.chartType" name="chart" (ngModelChange)="changeChart($event)" class="chartOptions selectBox">
+            <md-option *ngFor="let chart of chartTypes" [value]="chart.value">
+              {{chart.display}}
+            </md-option>
+          </md-select>
+          <md-select placeholder="Time Period" [(ngModel)]="queryOptions.timePeriod" name="time" (ngModelChange)="changeTimePeriod($event)" class="chartOptions selectBox">
+            <md-option *ngFor="let time of timePeriods" [value]="time.value">
+              {{time.display}}
+            </md-option>
+          </md-select>
+
+          <md-input-container *ngIf="queryOptions.timePeriod === 'hourly' ">
+              <input mdInput [mdDatepicker]="singleDatePicker" [(ngModel)]="queryOptions.hourlyDate" placeholder="Choose Date" (ngModelChange)="logDate($event)"> 
+              <button mdSuffix [mdDatepickerToggle]="singleDatePicker"></button>
+          </md-input-container>
+          <md-datepicker #singleDatePicker></md-datepicker>
+          
+          <md-input-container *ngIf="queryOptions.timePeriod === 'range' ">
+              <input mdInput [mdDatepicker]="startDatePicker" [(ngModel)]="queryOptions.startDate" placeholder="Choose Start Date"> 
+              <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
+          </md-input-container>
+          <md-datepicker #startDatePicker></md-datepicker>
+          
+          <md-input-container *ngIf="queryOptions.timePeriod === 'range' ">
+              <input mdInput [mdDatepicker]="endDatePicker" [(ngModel)]="queryOptions.endDate" placeholder="Choose End Date"> 
+              <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
+          </md-input-container>
+          <md-datepicker #endDatePicker></md-datepicker>
+          <button md-raised-button (click)="buildQuery()">Filter</button>
+        </div>
+        <chart [options]="chartOptions"></chart>
+      </div>
+      <div *ngIf="!activeCampaign">
+        <h4>No Active Campaigns</h4>
+        <button md-raised-button (click)="goToAddCampaign()">Click here to add one</button>
+      </div>
+    </md-card>
+  </div>
+</div>
+

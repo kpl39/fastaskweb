@@ -13,6 +13,7 @@ export class AppComponent {
     ) {}
 
     ngOnInit() {
-      console.log('APP INIT');     
+      console.log('APP INITIATED');
+         
     }
 }

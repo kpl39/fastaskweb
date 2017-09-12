@@ -3,7 +3,7 @@ import { HomeComponent } from '../../home/home.component';
 import { AuthService } from '../../../services/auth.service';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { PasswordValidation } from '../../../services/validators/password-match.validator';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
 // import { ActivatedRoute } from '@angular/router';
 
 @Component({

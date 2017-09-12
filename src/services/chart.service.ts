@@ -135,4 +135,57 @@ makeTimeChart() {
     return options;
 }
 
+makeViewsChart(data) {
+    console.log("DATA", data);
+    let options = {
+        chart: {
+            zoomType: 'x',
+            type: 'line'
+        },
+        title: {
+            text: 'Task Views By Date'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Views'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    }
+                    
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+
+        series: [{
+            name: 'Task Views',
+            data: data
+        }]
+    };
+    return options;
+}
+
 }

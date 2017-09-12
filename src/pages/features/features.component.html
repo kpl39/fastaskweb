@@ -2,7 +2,8 @@
 </div>
 <div class="splash">
     <div class="splash-video-wrapper">
-        <video loop muted autoplay poster="img/videoframe.jpg" class="splash-video">
+        <video *ngIf="device === 'desktop' " loop muted autoplay class="splash-video">
+        <!--<video loop muted autoplay poster="img/videoframe.jpg" class="splash-video">-->
             <source src="https://s3.amazonaws.com/fastaskbucket/videos/test.mp4" type="video/mp4">
         </video>
     </div>

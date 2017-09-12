@@ -1,0 +1,111 @@
+.buttons {
+    text-align: center;
+    margin-top:25px;
+}
+
+.submitButton {
+    background-color: #00AEEF;
+    color: white;
+}
+
+.teamCard {
+    padding: 0px 0px 10px 0px;
+    margin-bottom:10px;
+}
+
+.cardHeader {
+    background-color: #00AEEF;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.teamCardHeader {
+    background-color: #6ad1f3;
+    color: white;
+}
+
+.cardTitle {
+    padding: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.regularItem {
+    background-color: green;
+    width: 100%;
+}
+
+.highlightItem {
+    background-color: red;
+    width: 100%;
+}
+
+.listText {
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+}
+
+p {
+    margin: 0px;
+}
+
+.divider {
+    margin: 0px;
+}
+
+.indvCard {
+    padding: 0px 0px 10px 0px;
+    margin-bottom: 10px;
+}
+
+.basicCard {
+    padding: 0px 0px 10px 0px;
+    margin-bottom: 10px;
+}
+
+.placeHolder {
+    height:1px;
+}
+
+.cardDims {
+    width: 98%;
+    height: 98%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px;
+}
+
+.tasksCard {
+    padding: 0px 0px 10px 0px;
+}
+
+.taskCard {
+    padding: 0px;
+    width: 94%;
+    height: 94%;
+    margin:auto;
+    margin-bottom:10px;
+}
+
+.taskCardContent {
+    padding: 10px;
+}
+
+.tasksCardHeader {
+    background-color: #00AEEF;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.teamPadding {
+    padding-right: 18px;
+    padding-left: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.prizeCard {
+    padding: 0px 0px 10px 0px;
+}

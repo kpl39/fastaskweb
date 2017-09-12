@@ -29,6 +29,11 @@ export class MenuBarComponent {
     return this.auth.isAuthenticated();
   }
 
+  getUserType () {
+    let type = this.auth.getUserType();
+    return type;
+  }
+
   // login(){
   //   this.auth.facebookLogin()
   //     .then((res)=> {

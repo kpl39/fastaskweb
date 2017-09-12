@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HomeComponent } from '../home/home.component';
 import { AuthService } from '../../services/auth.service';
+import { RouterModule, Routes, Router } from '@angular/router';
+
 // import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,9 +10,19 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./vendor-dashboard.component.css']
 })
 export class VendorDashboardComponent {
+  userAuth: any;
+  profile: any;
+  navLinks = [
+      {label: 'Settings', link: 'settings'},
+      {label: 'Metrics', link: 'metrics'},
+      {label: 'Add Campaign', link: 'addtask'},
+      {label: 'Billing', link: 'billing'}
+  ];
+        
 
   constructor(
       private auth: AuthService,
+      public router: Router 
     //   private route: ActivatedRoute
     ) {
       console.log("Constructor");
@@ -20,7 +32,16 @@ export class VendorDashboardComponent {
     }
 
     ngOnInit() {
-        console.log("IN DASHBOARD");
-    }
+        this.checkLoginStatus();
+    };
+
+    checkLoginStatus() {
+        this.auth.getAuthState()
+            .then((userAuth) => {
+                if (!this.auth.isAuthenticated()) {
+                    this.router.navigate(['login'])
+                 }
+            }) 
+      };
 
 }

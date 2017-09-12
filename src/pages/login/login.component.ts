@@ -274,9 +274,11 @@ ngOnInit() {
       console.log("PARTNER DATA", this.partnerData);
       this.auth.createEmailUser(this.partnerData.email, this.partnerData.password)
         .then((res:any) => {
+            console.log("RES FROM PARTNER SIGN UP", res);
             if (res.code === 'auth/email-already-in-use') {
                 this.partnerSignUpError = 'That email is already in use. Please login.'
             } else {
+                this.partnerData.userid = res.uid;
                  this.auth.addCustomer(this.partnerData)
                     .then((res) => {
                         console.log("RES FROM ADD CUSTOMER")

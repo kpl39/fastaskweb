@@ -1,0 +1,12 @@
+.selectCampaign {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.chartOptions {
+    display: inline-block;
+}
+
+.selectBox {
+    width: 150px;
+}

@@ -1,0 +1,42 @@
+.card {
+    padding: 0px 0px 10px 0px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.cardHeader {
+    background-color: #00AEEF;
+    color: white;
+}
+
+.title {
+    padding: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.containerMargin {
+    margin-top: 25px;
+}
+
+.childCardHeader {
+    background-color: #6ad1f3;
+}
+
+.listItem {
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #e7e7e7;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.thumbButtons {
+    width: 25%;
+}

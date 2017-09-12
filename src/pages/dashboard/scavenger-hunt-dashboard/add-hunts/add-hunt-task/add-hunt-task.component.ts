@@ -3,6 +3,7 @@ import { GoogleMapsAPIWrapper, AgmCoreModule } from '@agm/core';
 import { ModelService } from '../../../../../services/models.service';
 import { TaskService } from '../../../../../services/task.service';
 import { AuthService } from '../../../../../services/auth.service';
+import { HuntService } from '../../../../../services/hunt.service';
 import { MdDialog } from '@angular/material';
 import { HelpModalComponent } from './help-modal/help-modal.component';
 import { FavoritesModalComponent } from './favorites-modal/favorites-modal.component';
@@ -48,11 +49,13 @@ export class AddHuntTaskComponent implements OnInit {
     private auth: AuthService,
     private modelService: ModelService,
     public dialog: MdDialog,
-    public taskService: TaskService
+    public taskService: TaskService,
+    public huntService: HuntService
   ) { }
 
   ngOnInit() {
     this.checkLoginStatus();
+    this.getTasks();
   }
 
 
@@ -68,7 +71,15 @@ export class AddHuntTaskComponent implements OnInit {
           }) 
       };
 
-
+  getTasks() {
+    this.huntService.getData('tasks')
+      .then((data:any) => {
+        console.log("TASKS", data);
+        if (data) {
+          this.taskData = data;
+        }
+      })
+  }
 
   addTask() {
     if (this.type === 'picture') {
@@ -337,7 +348,10 @@ removeMarker() {
     console.log("AFTER", this.markers);
     this.markers.splice(0, 1);
     console.log("AFTER AFTER", this.markers);
-    this.circle.setMap(null);
+    if (this.circle) {
+       this.circle.setMap(null);
+    }
+   
     this.radiusTemp = 50;
     
 }
@@ -431,6 +445,12 @@ selectModel(modelid, index, name) {
       this.selectedModel = {id: modelid, name: name};
   }
 
+  setData() {
+    this.huntService.setData('tasks', this.taskData);
+  }
 
+  ngOnDestroy() {
+         this.setData();
+    }
 
 }

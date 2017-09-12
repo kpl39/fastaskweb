@@ -1,2 +1,47 @@
 <div class="headerPadding"></div>
-<h1 class="blue"> vendor dashboard</h1>
+
+  <div class=" col-md-12 lightBlue">
+    
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <nav md-tab-nav-bar >
+                    <!--<a md-tab-link routerLink="user" routerLinkActive="active-link">User Settings</a>
+                    <a md-tab-link routerLink="tasks" routerLinkActive="active-link">Your LüT</a>
+                    <a md-tab-link routerLink="friends" routerLinkActive="active-link">Friends</a>
+                    <a md-tab-link routerLink="hunts" routerLinkActive="active-link">Scavenger Hunts</a>-->
+                    <a md-tab-link
+                        *ngFor="let link of navLinks"
+                        [routerLink]="link.link"
+                        routerLinkActive #rla="routerLinkActive"
+                        [active]="rla.isActive">
+                        {{link.label}}
+                    </a>
+                </nav>
+            </div>
+    </div>
+
+
+
+    <!--<md-tab-group>
+        <md-tab label="Friend Dash">
+            <friend-dashboard></friend-dashboard>
+        </md-tab>
+        <md-tab label="Task Dash">
+            <task-dashboard></task-dashboard>
+        </md-tab>
+        <md-tab label="Scavenger Hunt Dash">
+            <scavenger-hunt-dashboard></scavenger-hunt-dashboard>
+        </md-tab>
+        <md-tab label="User Dash">
+            <user-dashboard></user-dashboard>
+        </md-tab>
+    </md-tab-group>-->
+  
+   
+
+
+    <router-outlet></router-outlet>
+
+
+

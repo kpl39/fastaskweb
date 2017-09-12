@@ -1,3 +1,72 @@
 <div class="container">
-  <p>Your Hunts</p>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 containerMargin">
+      <md-card class="card">
+        <div class="cardHeader">
+          <h4 class="title">Hunt's You've Created</h4>
+        </div>
+        <md-list>
+            <md-list-item *ngFor="let hunt of yourHunts" class="listItem">
+              <img md-list-avatar src={{hunt.profileurl}}>
+               <h2 md-line>{{hunt.title}}</h2>
+                <h3 md-line>{{hunt.description}}</h3>
+                <!--<p>Created by: {{hunt.username}}</p>-->
+                <p md-line *ngIf="hunt.active != true && hunt.ended != true"><strong>{{ countDown(hunt.date_tm )}}</strong></p>
+                <p md-line *ngIf="hunt.active == true"><strong>Time Remaining:  {{hunt.hours}} : {{hunt.minutes}} : {{hunt.seconds}}</strong></p> 
+                <p md-line *ngIf="hunt.ended == true"><strong>Ended</strong></p>
+            </md-list-item>
+            <md-list-item *ngIf="yourHunts.length < 1">
+               <p md-line>You have no scavenger hunts scheduled</p>
+            </md-list-item>
+          </md-list>
+      </md-card>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 containerMargin">
+      <md-card class="card">
+        <div class="cardHeader">
+          <h4 class="title">From other Users</h4>
+        </div>
+        <md-list>
+          <md-list-item *ngFor="let hunt of otherHunts; let i = index" class="listItem">
+              <img md-list-avatar src={{hunt.profileurl}}>
+               <h2 md-line>{{hunt.title}}</h2>
+                <!--<h3 md-line>{{hunt.description}}</h3>-->
+                <p md-line>Created by: {{hunt.username}}</p>
+                <p md-line><strong>{{ countDown(hunt.date_tm )}}</strong></p>
+                <!--<button md-icon-button  *ngIf="hunt.accepted == true">
+                       <md-icon>check</md-icon>
+                </button>
+                <button md-icon-button *ngIf="hunt.declined == true" >
+                        <ion-icon name="close-circle"></ion-icon>
+                </button>-->
+                <!--<md-icon  *ngIf="hunt.accepted == true" >folder</md-icon>
+                <md-icon   *ngIf="hunt.declined == true" md-list-icon>check</md-icon>-->
+                <i *ngIf="hunt.accepted == true" class="mdi mdi-check-circle-outline mdi-24px green"></i>
+                <i *ngIf="hunt.declined == true" class="mdi mdi-cancel mdi-24px red"></i>
+                <div class="thumbButtons" *ngIf="hunt.accepted == false && hunt.declined == false">
+                  <table>
+                    <tr>
+                      <td>
+                        <button md-icon-button  (click)="checkTeamBased(hunt, i, 'other')">
+                            I'm In! <i class="mdi mdi-thumb-up-outline mdi-24px"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <button md-icon-button (click)="declineHunt(hunt, i, 'other')">
+                            Can't Do It <i class="mdi mdi-thumb-down-outline mdi-24px"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+            </md-list-item>
+            <md-list-item *ngIf="yourHunts.length < 1">
+              <p md-line>You have no scavenger hunts scheduled</p>
+            </md-list-item>
+        </md-list>
+      </md-card>
+    </div>
+  </div>
 </div>

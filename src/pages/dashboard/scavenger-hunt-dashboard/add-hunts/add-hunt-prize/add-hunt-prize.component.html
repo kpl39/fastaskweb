@@ -1,10 +1,44 @@
 <div class="row">
-  <div class="col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4  col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10  bgColor">
-    <h1>Prize</h1>
+  <div class="col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4  col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10">
+       <div class="centerDiv"> 
+         <h4>Describe the prize of the scavenger hunt</h4>
+         <h5>Examples:</h5>
+         <ul>
+           <li>
+             Everyone chips in $10, winner take all.
+           </li>
+           <li>
+             Losing team buys drinks at the last bar.
+           </li>
+           <li>
+             It's a surprise! 
+           </li>
+           <li>
+             Just for fun. 
+           </li>
+         </ul>
+          <md-input-container class="full-width">
+              <input mdInput placeholder="Prize" [(ngModel)]="prize">
+              <!--<md-error [hidden]="basicForm.controls.title.valid || basicForm.controls.title.pristine">
+                Title is Required
+              </md-error>-->
+          </md-input-container>
+       </div>
+       <div class="buttons">
+        <button md-raised-button class="navButton" routerLink="../task">Back</button>
+        <button md-raised-button class="navButton" routerLink="../confirm">Next</button>
+        <div>
+          <img src="../../../../../assets/images/venmo.png" class="venmo">
+        </div>
+       </div>
+       
+       <h5>Venmo Integration Coming Soon!</h5>
+       <p>Each participant "buys-in" to the scavenger hunt using venmo. The "pot" gets transferred to the winner's venmo accout.</p>
   </div>
+
+
+ 
 </div>
 
 
 
-<button md-raised-button class="navButton" routerLink="../task">Back</button>
-<button md-raised-button class="navButton" routerLink="../confirm">Next</button>

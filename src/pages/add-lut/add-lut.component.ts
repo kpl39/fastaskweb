@@ -346,6 +346,7 @@ initModel(url) {
     let version = '1.0.0';
     // let urlid = '7w7pAfrCfjovwykkEeRFLGw5SXS';
     let urlid = url || this.models[0].uid;
+    console.log("SketchFab", Sketchfab);
     let client = new Sketchfab( version, iframe );
 
     client.init( urlid, {

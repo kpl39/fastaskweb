@@ -40,6 +40,10 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
       import { AddHuntPrizeComponent } from '../pages/dashboard/scavenger-hunt-dashboard/add-hunts/add-hunt-prize/add-hunt-prize.component';
       import { AddHuntTaskComponent } from '../pages/dashboard/scavenger-hunt-dashboard/add-hunts/add-hunt-task/add-hunt-task.component';
 import { VendorDashboardComponent } from '../pages/vendor-dashboard/vendor-dashboard.component';
+  import { VendorAddtaskDashboardComponent } from '../pages/vendor-dashboard/vendor-addtask-dashboard/vendor-addtask-dashboard.component';
+  import { VendorBillingDashboardComponent } from '../pages/vendor-dashboard/vendor-billing-dashboard/vendor-billing-dashboard.component';
+  import { VendorMetricsDashboardComponent } from '../pages/vendor-dashboard/vendor-metrics-dashboard/vendor-metrics-dashboard.component';
+  import { VendorSettingsDashboardComponent, } from '../pages/vendor-dashboard/vendor-settings-dashboard/vendor-settings-dashboard.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { PasswordResetModalComponent } from '../pages/login/password-modal/password-modal.compenent';
  
@@ -48,10 +52,13 @@ import { ChartService } from '../services/chart.service';
 import { ModelService } from '../services/models.service';
 import { TaskService } from '../services/task.service';
 import { HuntService } from '../services/hunt.service';
+import { QueryService } from '../services/query.service';
+import { ChatService } from '../services/chat.service';
 
 import { PasswordValidation } from '../services/validators/password-match.validator';
 import { HelpModalComponent } from '../pages/dashboard/scavenger-hunt-dashboard/add-hunts/add-hunt-task/help-modal/help-modal.component';
 import { FavoritesModalComponent } from '../pages/dashboard/scavenger-hunt-dashboard/add-hunts/add-hunt-task/favorites-modal/favorites-modal.component';
+
 
 
 
@@ -89,7 +96,16 @@ const appRoutes: Routes = [
         { path: '', redirectTo: 'user', pathMatch: 'full' }
     ]
   },
-  { path: 'vendor-dashboard', component: VendorDashboardComponent},
+  { path: 'vendor-dashboard', 
+    component: VendorDashboardComponent,
+    children: [
+      { path: 'addtask', component: VendorAddtaskDashboardComponent },
+      { path: 'billing', component: VendorBillingDashboardComponent },
+      { path: 'metrics', component: VendorMetricsDashboardComponent },
+      { path: 'settings', component: VendorSettingsDashboardComponent },
+      { path: '', redirectTo: 'settings', pathMatch: 'full' }
+    ]
+  },
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: HomeComponent }
@@ -140,7 +156,11 @@ const firebaseConfig = {
     UnLinkAccountDialog,
     AddHuntPrizeComponent,
     HelpModalComponent,
-    FavoritesModalComponent
+    FavoritesModalComponent,
+    VendorSettingsDashboardComponent,
+    VendorAddtaskDashboardComponent,
+    VendorBillingDashboardComponent,
+    VendorMetricsDashboardComponent
   ],
   entryComponents: [
     PasswordResetModalComponent, 
@@ -173,6 +193,8 @@ const firebaseConfig = {
     TaskService,
     PasswordValidation,
     HuntService,
+    QueryService,
+    ChatService,
     {
       provide: HighchartsStatic,
       useFactory: highchartsFactory

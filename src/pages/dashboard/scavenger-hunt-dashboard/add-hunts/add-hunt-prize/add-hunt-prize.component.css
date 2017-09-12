@@ -6,3 +6,23 @@
     background-color: red;
     /*width:100%;*/
 }
+
+
+.buttons {
+    text-align: center;
+}
+
+
+.centerDiv {
+    margin: auto;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.venmo {
+    width:200px;
+    height: 67px;
+    margin:auto;
+}

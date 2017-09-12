@@ -45,11 +45,17 @@
                 <li><a md-button routerLink="/addlut" routerLinkActive="active">Add LüT</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" md-button *ngIf="checkAuth()" routerLinkActive="active">Dashboard<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" *ngIf="getUserType() === 'user' ">
                             <li><a md-button routerLink="/dashboard/user" routerLinkActive="active">Profile Settings</a></li>
                             <li><a md-button routerLink="/dashboard/tasks" routerLinkActive="active">Your LüT</a></li>
                             <li><a md-button routerLink="/dashboard/friends" routerLinkActive="active">Friends</a></li>
                             <li><a md-button routerLink="/dashboard/hunts" routerLinkActive="active">Scavenger Hunts</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" *ngIf="getUserType() === 'vendor' ">
+                            <li><a md-button routerLink="/vendor-dashboard/addtask" routerLinkActive="active">Add LüT</a></li>
+                            <li><a md-button routerLink="/vendor-dashboard/billing" routerLinkActive="active">Billing</a></li>
+                            <li><a md-button routerLink="/vendor-dashboard/metrics" routerLinkActive="active">Metrics</a></li>
+                            <li><a md-button routerLink="/vendor-dashboard/settings" routerLinkActive="active">Settings</a></li>
                         </ul>
                 </li>
                 <li><a md-button *ngIf="!checkAuth()" routerLink="/login" routerLinkActive="active">Login</a></li>

@@ -5,3 +5,26 @@
 .headerPadding {
     padding-top: 100px;
 }
+
+
+.lightBlue {
+    background-color: #6ad1f3;
+    box-shadow: 0px 0px 8px 2px #6C6D6D;
+    z-index: 2;
+}
+
+.whiteText {
+    color: white;
+    font-weight: bold;
+}
+
+
+/*md-tab-nav-bar {
+  background: green;
+}*/
+
+.mat-tab-link {
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+}

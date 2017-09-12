@@ -1,5 +1,155 @@
-<p>
-  add-hunt-confirm works!
-</p>
+<div class="col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
+  
+  <!--Basic Data -->
 
-<button md-raised-button class="navButton" routerLink="../prize">Back</button>
+  <div class="basicData" > 
+    <md-card class="basicCard">
+       <div class="cardHeader">
+            <h4 class="cardTitle">Scavenger Hunt Information</h4>
+        </div>
+        <div *ngIf="basicData"> 
+          <div>
+            <p class="listText"><b>Title:</b> {{basicData.title}}</p>
+            <hr class="divider">
+          </div>
+          <div>
+            <p class="listText"><b>Start Time:</b> {{basicData.startTime | date:'fullDate'}} {{basicData.startTime | date:'shortTime' }}</p>
+            <hr class="divider">
+          </div>
+          <div>
+            <p class="listText"><b>End Time:</b> {{basicData.endTime | date:'fullDate'}} {{basicData.endTime | date:'shortTime' }}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="!basicData">
+            <p class="listText">No information. Please add some.</p>
+          </div>
+        </div>
+    </md-card>
+  </div>
+  
+  <!--Participant Data -->
+  <div *ngIf="participantData">
+    
+    <div class="teams" *ngIf="participantData.teams">
+      <md-card class="teamCard">
+          <div class="cardHeader">
+            <h4 class="cardTitle">Teams</h4>
+          </div>
+          <div class="teamPadding">
+           <md-grid-list cols="2" rowHeight="1:0.5">
+              <md-grid-tile *ngFor="let team of teamKeys" colspan="1">
+                <md-card class="cardDims">
+                  <div class="teamCardHeader">
+                    <h4 class="cardTitle">{{team}}</h4>
+                  </div>
+                  <div *ngFor="let player of participantData.teamData[team]; let i = index">
+                    <p class="listText">{{player.username}}</p>
+                    <hr *ngIf="i !== participantData.teamData[team].length - 1" class="divider">
+                  </div>
+                </md-card>
+              </md-grid-tile>
+           </md-grid-list>
+            <div>
+              <div *ngIf="teamKeys.length < 1 && participantData.teams">
+                <p class="listText">No information. Please add some.</p>
+              </div>
+            </div>
+          </div>
+
+
+            <!--<div class="col-md-6"  >
+              <md-card class="teamCard">
+                <div class="cardHeader">
+                  <h4 class="cardTitle">{{team}}</h4>
+                </div>
+                <div *ngFor="let player of participantData.teamData[team]; let i = index">
+                  <p class="listText">{{player.username}}</p>
+                  <hr *ngIf="i !== participantData.teamData[team].length - 1" class="divider">
+                </div>
+              </md-card>
+            </div>-->
+      </md-card>
+    </div>
+    <div class="indvidual" *ngIf="!participantData.teams">
+       <md-card class="indvCard">
+          <div class="cardHeader">
+            <h4 class="cardTitle">Players</h4>
+          </div>
+          <div *ngIf="!participantData.teams && participantData.invitedFriends.length > 0">
+            <div *ngFor="let player of participantData.invitedFriends; let i = index">
+              <p class="listText">{{player.username}}</p>
+              <hr *ngIf="i !== participantData.invitedFriends.length - 1" class="divider">
+            </div>
+          </div> 
+           <div *ngIf="!participantData.teams && participantData.invitedFriends.length < 1">
+                <p class="listText">No information. Please add some.</p>
+            </div>
+       </md-card>
+    </div>
+  </div>
+
+  <!--Task Data -->
+  <div class="tasks" *ngIf="taskData">
+     <md-card class="tasksCard">
+          <div class="tasksCardHeader">
+            <h4 class="cardTitle">Tasks</h4>
+          </div>
+          <div *ngIf="taskData.tasks.length > 0">
+            <md-card *ngFor="let task of taskData.tasks; let i = index" class="taskCard">
+              <div class="teamCardHeader">
+                    <h4 class="cardTitle">{{task.title}}</h4>
+              </div>
+                <md-card-content class="taskCardContent">
+                  <p><b>Description:</b> {{task.hint}}</p>
+                  <table style="width:100%">
+                    <tr>
+                      <td style="width:50%">
+                        <p><b>Points:</b> {{task.points}}</p>
+                      </td>
+                      <td style="width:50%">
+                        <p><b>Type:</b> {{task.type}}</p>
+                      </td>
+                    </tr>
+                    <tr [hidden]="task.type === 'picture' ">
+                      <td>
+                        <p><b>Latitude:</b> {{task.lat}}</p>
+                      </td>
+                      <td>
+                        <p><b>Longitude:</b> {{task.lng}}</p>
+                      </td>
+                    </tr>
+                  </table>
+                  <p *ngIf="task.type === 'geolocation-model' "><b>3D Model:</b> {{task.modelname}}</p>           
+                </md-card-content>
+            </md-card>
+          </div> 
+           <div *ngIf="taskData.tasks.length < 1">
+                <p class="listText">No information. Please add some.</p>
+            </div>
+       </md-card>
+
+  </div>
+
+  <div>
+    <md-card class="prizeCard">
+          <div class="cardHeader">
+            <h4 class="cardTitle">Prize</h4>
+          </div>
+          <div class="prizeContent" *ngIf="prize">
+            <p class="listText">{{prize}}</p>
+          </div>
+          <div *ngIf="!prize">
+            <p class="listText">No information. Please add some.</p>
+          </div>
+    </md-card>
+  </div>
+
+<div class="buttons">
+  <button md-raised-button class="navButton" routerLink="../prize">Back</button>
+  <button md-raised-button class="submitButton" (click)="submitHunt()">Submit</button>
+</div>
+
+</div>
+
+
