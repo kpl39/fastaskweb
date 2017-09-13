@@ -21,7 +21,7 @@ constructor(
     addTask(pkg) {
         console.log("IN ADD TASK", pkg);
         return new Promise(resolve => {
-             this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/addtask', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addtask', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
@@ -34,7 +34,7 @@ constructor(
         }
 
         return new Promise( resolve => {
-            this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/uploadtaskimage', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/uploadtaskimage', pkg)
                 .subscribe((res) => resolve(res.json()));
         })
     }
@@ -43,28 +43,28 @@ constructor(
 
      addGeoLocations(pkg) {
         return new Promise(resolve => {
-             this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/addgeolocations', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addgeolocations', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     addPromotion(pkg) {
          return new Promise(resolve => {
-             this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/addpromotion', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addpromotion', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     getFavoriteTasks(userid) {
         return new Promise(resolve => {
-             this.http.get('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/getfavoritetasks/' + userid)
+             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getfavoritetasks/' + userid)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     addFavoriteTask(pkg) {
         return new Promise(resolve => {
-             this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/addfavoritetask', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addfavoritetask', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
@@ -75,7 +75,7 @@ constructor(
                 console.log("Cached Vendor Tasks")
                 resolve(this.vendorTasks);
             } else {
-             this.http.get('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/gettasksbyvendor/' + vendorid)
+             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/gettasksbyvendor/' + vendorid)
                 .subscribe((res) => {
                     console.log("Vendor Tasks from API");
                     this.vendorTasks = res.json().data;

@@ -35,7 +35,7 @@ constructor(
         }
 
         return new Promise( resolve => {
-            this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/uploadtaskimage', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/uploadtaskimage', pkg)
                 .subscribe((res) => resolve(res.json()));
         })
     }
@@ -44,21 +44,21 @@ constructor(
     addTask(pkg) {
         console.log("IN ADD TASK", pkg);
         return new Promise(resolve => {
-             this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/addtask', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addtask', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     getModelID(uid) {
          return new Promise(resolve => {
-             this.http.get('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/getmodelid/' + uid)
+             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getmodelid/' + uid)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     addGeoLocations(pkg) {
         return new Promise(resolve => {
-             this.http.post('https://lutapi-dev.us-east-1.elasticbeanstalk.com/api/addgeolocations/', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addgeolocations/', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
