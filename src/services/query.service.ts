@@ -48,7 +48,7 @@ constructor(
     sendQuery(pkg) {
         console.log("IN SEND QUERY", pkg);
         return new Promise(resolve => {
-             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/taskquery', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/taskquery', pkg)
                 .subscribe((res) => {
                     let data = res.json().data;
                     let query = {time: new Date().toISOString(), data: res}

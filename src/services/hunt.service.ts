@@ -43,27 +43,27 @@ constructor(
 
   submitHunt(pkg) {
          return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/submithunt', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/submithunt', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     submitHuntTasks(pkg) {
          return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/submithunttasks', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/submithunttasks', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
     submitHuntUsers(pkg) {
          return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/submithuntusers', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/submithuntusers', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     getHuntTasksByHuntId(huntid) {
         return new Promise(resolve => {
-            this.http.get('https://server.xn--lt-xka.co/api/tasks/api/gethunttasksbyhunt/' + huntid)
+            this.http.get('https://server.xn--lt-xka.co/api/gethunttasksbyhunt/' + huntid)
                 .subscribe((res) => resolve(res.json().data));
         }) 
     }
@@ -93,7 +93,7 @@ constructor(
                     console.log("iterator", iterator);
                     if (iterator === 0){
                         console.log("TASKS IN FINAL LOOP", tasks);
-                        this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addcomplete', tasks)
+                        this.http.post('https://server.xn--lt-xka.co/api/addcomplete', tasks)
                             .subscribe((res) => resolve(res.json().data));
                     }
                 })        
@@ -103,14 +103,14 @@ constructor(
 
     addTeamsToHunt(pkg) {
         return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addteamstohunt', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/addteamstohunt', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     addUsersToTeams(pkg) {
         return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/adduserstoteams', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/adduserstoteams', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
@@ -118,35 +118,35 @@ constructor(
 
     getHunts(userid) {
         return new Promise(resolve => {
-            this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getuserhunts/ ' + userid)
+            this.http.get('https://server.xn--lt-xka.co/api/getuserhunts/ ' + userid)
                 .subscribe((res) => resolve(res.json().data));
         })
     } 
 
     getHuntStatus(userid) {
         return new Promise(resolve => {
-            this.http.get('https://server.xn--lt-xka.co/api/tasks/api/gethuntaccepts/ ' + userid)
+            this.http.get('https://server.xn--lt-xka.co/api/gethuntaccepts/ ' + userid)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     acceptHunt(pkg) {
         return new Promise(resolve => {
-            this.http.put('https://server.xn--lt-xka.co/api/tasks/api/accepthunt', pkg)
+            this.http.put('https://server.xn--lt-xka.co/api/accepthunt', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     } 
 
     declinetHunt(pkg) {
         return new Promise(resolve => {
-            this.http.put('https://server.xn--lt-xka.co/api/tasks/api/declinehunt', pkg)
+            this.http.put('https://server.xn--lt-xka.co/api/declinehunt', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     } 
 
     getUserTeamByHunt(hunt_id, user_id) {
         return new Promise(resolve => {
-            this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getuserteambyhunt/' + hunt_id + '/' + user_id)
+            this.http.get('https://server.xn--lt-xka.co/api/getuserteambyhunt/' + hunt_id + '/' + user_id)
                 .subscribe((res) => resolve(res.json().data));
         })
     }

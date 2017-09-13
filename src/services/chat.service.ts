@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
-    private url ='https://server.xn--lt-xka.co/api/tasks';
+    private url ='https://server.xn--lt-xka.co';
     private socket;
 
     constructor() {}

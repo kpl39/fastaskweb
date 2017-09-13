@@ -52,7 +52,7 @@ constructor(
        };
        console.log("BEFORE SENDING TO SERVER", response);
         return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/captcha', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/captcha', pkg)
             .subscribe((res) => resolve(res.json().data));
         })
     }
@@ -134,14 +134,14 @@ constructor(
 
     addCustomer(pkg) {
         return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/addcustomer', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/addcustomer', pkg)
                 .subscribe((res) => resolve(res.json()));
         })
     }
 
     addUser(pkg) {
         return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/adduser', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/adduser', pkg)
                 .subscribe((res) => resolve(res.json()));
         })
     }
@@ -188,7 +188,7 @@ constructor(
             //     console.log("Profile already loaded");
             //     resolve(this.profile);
             // } else {
-                this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getprofile/'+ uid)
+                this.http.get('https://server.xn--lt-xka.co/api/getprofile/'+ uid)
                     .subscribe((res) => {
                         console.log('GET PROFILE FROM API')
                         this.profile = res.json().data;
@@ -203,7 +203,7 @@ constructor(
               if (this.vendorInfo) {
                   resolve(this.vendorInfo);
               } else {
-                 this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getvendorinfo/'+ uid)
+                 this.http.get('https://server.xn--lt-xka.co/api/getvendorinfo/'+ uid)
                     .subscribe((res) => {
                         this.vendorInfo = res.json().data;
                         resolve(res.json().data)
@@ -214,7 +214,7 @@ constructor(
 
     checkEmailStatus(email) {
         return new Promise(resolve => {
-            this.http.get('https://server.xn--lt-xka.co/api/tasks/api/checkemail/' + email)
+            this.http.get('https://server.xn--lt-xka.co/api/checkemail/' + email)
                 .subscribe((res) => {
                     let userType = res.json().data;
                     if (userType.user) {
@@ -232,14 +232,14 @@ constructor(
     uploadProfileImage(pkg) {
         console.log("CALLED PROFILE SERVICE", pkg);
         return new Promise(resolve => {
-            this.http.post('https://server.xn--lt-xka.co/api/tasks/api/uploadprofileimage', pkg)
+            this.http.post('https://server.xn--lt-xka.co/api/uploadprofileimage', pkg)
                 .subscribe((res) => resolve(res.json().data));
         })
     }
 
     getUsernames() {
         return new Promise(resolve => {
-            this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getusers')
+            this.http.get('https://server.xn--lt-xka.co/api/getusers')
                 .subscribe( res => resolve(res.json().data))
         })
   }
@@ -287,7 +287,7 @@ constructor(
 
   getTwitterFriends(twitterid) {
       return new Promise(resolve => {
-           this.http.get('https://server.xn--lt-xka.co/api/tasks/api/twitterfriends/' + twitterid)
+           this.http.get('https://server.xn--lt-xka.co/api/twitterfriends/' + twitterid)
                 .subscribe( res => resolve(res.json().data))
         })
   }
@@ -305,56 +305,56 @@ constructor(
 
      getLutFriends(userid) {
          return new Promise(resolve => {
-             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getfastaskfriends/' + userid)
+             this.http.get('https://server.xn--lt-xka.co/api/getfastaskfriends/' + userid)
                 .subscribe(res => resolve(res.json().data))
          })
      }
 
      getUserIdFromFacebook(facebookid) {
          return new Promise(resolve => {
-             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getidfromfacebookid/' + facebookid)
+             this.http.get('https://server.xn--lt-xka.co/api/getidfromfacebookid/' + facebookid)
                 .subscribe(res => resolve(res.json().data))
          })
      }
 
      sendFriendRequest(pkg) {
          return new Promise(resolve => {
-             this.http.post('https://server.xn--lt-xka.co/api/tasks/api/friendrequest', pkg)
+             this.http.post('https://server.xn--lt-xka.co/api/friendrequest', pkg)
                 .subscribe(res => resolve(res.json()))
          })
      }
 
      getFriendRequests(userid) {
          return new Promise(resolve => {
-             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/getfriendrequests/' + userid)
+             this.http.get('https://server.xn--lt-xka.co/api/getfriendrequests/' + userid)
                 .subscribe(res => resolve(res.json().data))
          })
      }
 
      getRequestStatus(userid) {
          return new Promise(resolve => {
-             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/requeststatus/' + userid)
+             this.http.get('https://server.xn--lt-xka.co/api/requeststatus/' + userid)
                 .subscribe(res => resolve(res.json().data))
          })
      }
 
      acceptFriendRequest(pkg) {
          return new Promise(resolve => {
-             this.http.put('https://server.xn--lt-xka.co/api/tasks/api/acceptrequest', pkg)
+             this.http.put('https://server.xn--lt-xka.co/api/acceptrequest', pkg)
                 .subscribe(res => resolve(res.json().data))
          })
      }
 
      getPostsFromUser(userid) {
          return new Promise(resolve => {
-             this.http.get('https://server.xn--lt-xka.co/api/tasks/api/userposts/' + userid)
+             this.http.get('https://server.xn--lt-xka.co/api/userposts/' + userid)
                 .subscribe(res => resolve(res.json().data))
          })
      }
 
      updateCompanyProfile(pkg) {
           return new Promise(resolve => {
-             this.http.put('https://server.xn--lt-xka.co/api/tasks/api/updatecompanyprofile', pkg)
+             this.http.put('https://server.xn--lt-xka.co/api/updatecompanyprofile', pkg)
                 .subscribe(res => resolve(res.json().data))
          })
      }
